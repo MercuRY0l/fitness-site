@@ -12,6 +12,10 @@ margin:0;
 background:#222222;
 color:white;
 line-height: 1.6;
+
+display: flex;
+flex-direction: column;
+min-height: 100vh;
 }
 
 header{
@@ -43,6 +47,7 @@ main{
 padding:40px;
 max-width:1000px;
 margin:auto;
+flex: 1;
 }
 
 .training-form{
@@ -58,6 +63,25 @@ padding:10px;
 margin:10px 0;
 border:none;
 border-radius:6px;
+}
+
+.search-container{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.search-container input{
+    flex: 9;
+}
+
+.search-container button{
+    flex: 1;
+    background:#ff3c3c;
+    border:none;
+    color:white;
+    border-radius:6px;
+    cursor:pointer;
 }
 
 .exercise-grid{
@@ -86,8 +110,8 @@ width:100%;
 border-radius:10px;
 }
 
-button{
-padding:12px 20px;
+.add-btn{
+padding:10px 20px;
 background:#ff3c3c;
 border:none;
 color:white;
@@ -100,7 +124,11 @@ justify-content: center;
 
 }
 
-.button-container{
+.add-btn:hover{
+    background-color: #333;
+}
+
+.add-button-container{
 display: flex;
 justify-content: center;
 
