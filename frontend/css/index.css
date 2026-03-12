@@ -6,6 +6,10 @@ font-family: 'Arial', sans-serif;
 
 }
 
+.open-login-btn{
+  cursor: pointer;
+}
+
 .modal {
   display: none; 
   position: fixed;
@@ -19,6 +23,10 @@ font-family: 'Arial', sans-serif;
   
   z-index: 1000;
 
+}
+
+.modal.active {
+  display: flex;
 }
 
 
@@ -91,14 +99,14 @@ font-family: 'Arial', sans-serif;
     text-align: center;
 }
 
-.modal-content a{
+.modal-content .switch-modal{
     color: #555;
     transition: background 0.3s;
+    cursor: pointer;
 }
 
-.modal-content a:hover{
+.modal-content .switch-modal:hover{
     color: #ae0707;
-    
 }
 
 @media (max-width: 400px) {
