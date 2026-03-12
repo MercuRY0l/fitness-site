@@ -12,50 +12,67 @@
 
 
 
-  <div id="modal-login" class="modal">
-              
-    <div class="modal-content">
-        <button id="close-modal-user-btn" class="close-btn">
-          <i class="bi bi-x-circle"></i>
-        </button>
 
-        <h3>Вход</h3>
-        <input type="text" placeholder="Введите логин: ">
-        <input type="password" placeholder="Введите пароль: ">
-        <button id="log-in-btn" class="log-btn">Войти</button>
-        <p>Нет аккаунта? <span class="switch-modal" data-target="modal-register">Регистрация</a></p>
-      </div>
-      
+  <div id="modal-login" class="modal">
+    <div class="modal-content">
+
+      <button class="close-btn" data-close="modal-login">
+        <i class="bi bi-x-circle"></i>
+      </button>
+
+      <h3>Вход</h3>
+      <input type="text" placeholder="Введите логин">
+      <input type="password" placeholder="Введите пароль">
+
+      <button class="log-btn">Войти</button>
+
+      <p>
+        Нет аккаунта?
+        <span class="switch-modal" data-target="modal-register">Регистрация</span>
+      </p>
+
+    </div>
   </div>
 
 
   <div id="modal-register" class="modal">
-              
     <div class="modal-content">
-        <button id="close-modal-user-btn" class="close-btn">
-          <i class="bi bi-x-circle"></i>
-        </button>
 
-        <h3>Регистрация</h3>
-        <input type="text" placeholder="Введите логин: ">
-        <input type="email" placeholder="Введите email: ">
-        <input type="password" placeholder="Введите пароль: ">
-        <input type="password" placeholder="Повторите введённый пароль: ">
-        <button id="log-in-btn" class="log-btn">Зарегистрироваться</button>
-        <p>Нет аккаунта? <span class="switch-modal" data-target="modal-login">Вход</a></p>
-      </div>
-      
+      <button class="close-btn" data-close="modal-register">
+        <i class="bi bi-x-circle"></i>
+      </button>
+
+      <h3>Регистрация</h3>
+      <input type="text" placeholder="Введите логин">
+      <input type="email" placeholder="Введите email">
+      <input type="password" placeholder="Введите пароль">
+      <input type="password" placeholder="Повторите пароль">
+
+      <button class="log-btn">Зарегистрироваться</button>
+
+      <p>
+        Уже есть аккаунт?
+        <span class="switch-modal" data-target="modal-login">Вход</span>
+      </p>
+
+    </div>
   </div>
-  
+
   <header>
     <div class="logo">FitHard</div>
+
     <nav>
       <ul>
         <li><a href="#home">Главная</a></li>
         <li><a href="training.html">Тренировки</a></li>
         <li><a href="#contacts">Контакты</a></li>
         <li><a href="#reviews">Отзывы</a></li>
-        <li><a id="open-modal-user-btn">Личный кабинет</a></li>
+
+        <li>
+          <a id="open-modal-user-btn" class="open-login-btn">
+            Личный кабинет
+          </a>
+        </li>
       </ul>
     </nav>
   </header>
@@ -84,6 +101,6 @@
     &copy; 2026 FitHard. Все права защищены.
   </footer>
 
-  <script type="module" src="/frontend/js/main.js"></script>
+  <script type="module" src="../js/main.js"></script>
 </body>
 </html>

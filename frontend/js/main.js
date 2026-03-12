@@ -1,6 +1,6 @@
-import { openUserModal } from "./openUserModal.js"
+import { initAuthModals } from "./initAuthModals.js"
 
 
 document.addEventListener("DOMContentLoaded", () => {
-    openUserModal();
+    initAuthModals();
 }) 
