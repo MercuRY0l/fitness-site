@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Тренировки | FitHard</title>
+<link rel="stylesheet" href="/frontend/css/training.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+</head>
+
+<body>
+
+<header>
+  <div class="logo">FitHard</div>
+  <nav>
+    <ul>
+      <li><a href="index.html">Главная</a></li>
+      <li><a href="training.html">Тренировки</a></li>
+      <li><a href="#">Личный кабинет</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+
+<h1>Создать тренировку</h1>
+
+<div class="training-form">
+
+<label>Дата тренировки</label>
+<input type="date" id="date">
+
+<label>Подходы</label>
+<input type="number" id="sets" placeholder="Например: 4">
+
+<label>Повторения</label>
+<input type="number" id="reps" placeholder="Например: 12">
+
+<h2>Выберите упражнение</h2>
+
+<div class="search-container">
+  <input id="seacrhExercise" type="text" placeholder="Введите название упражнения, например: жим лежа" class="search-box">
+  <button id="searchWorkout" class="search-btn" type="submit">Искать</button>
+</div>
+
+</div>
+
+<div class="add-button-container">
+  <button id="addWorkout" class="add-btn" type="submit">Добавить тренировку</button>
+</div>
+
+</div>
+
+
+<h1>Мои тренировки</h1>
+
+<div id="workoutList" class="workout-list">
+  <h2>Здесь пока пусто.</h2>
+</div>
+
+</main>
+
+
+<footer>
+    &copy; 2026 FitHard. Все права защищены.
+</footer>
+
+</body>
+</html>
