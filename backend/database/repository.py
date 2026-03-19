@@ -11,6 +11,11 @@ class UserRepository:
             res = await session.execute(stmt)
             return res.scalars_one_or_none()
         
+    async def find_user_by_username(self , username: str) -> Users:
+        async with async_session() as session:
+            stmt = select(Users).where(Users.login == username)
+            res = await session.execute(stmt)
+            return res.scalar_one_or_none()
     
     async def create_user(self, username : str, login : str, email : str, password : str, created_at : datetime):
         async with async_session() as session:
