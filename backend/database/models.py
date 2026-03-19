@@ -8,11 +8,11 @@ class Base(DeclarativeBase):
 
 
 class Users(Base):
-    
     __tablename__ = "users"
     
     id : Mapped[int] = mapped_column(primary_key=True)
-    login : Mapped[str] = mapped_column(String(255), nullable=False)
+    login : Mapped[str] = mapped_column(String(255), nullable=False , unique=True)
+    email : Mapped[str] = mapped_column(String(255), nullable=False, unique=True)
     password : Mapped[str] = mapped_column(String(255) , nullable=False)
     created_at : Mapped[datetime] = mapped_column(DateTime, nullable=False, default=func.now())
     
