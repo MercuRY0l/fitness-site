@@ -93,6 +93,23 @@ font-family: 'Arial', sans-serif;
   background-color: #ae0707;
 }
 
+.reg-btn {
+  padding: 10px;
+  font-size: 1rem;
+  background-color: #222222; 
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.5s;
+  font-weight: bold;
+}
+
+.reg-btn:hover {
+  background-color: #ae0707;
+}
+
+
 
 .modal-content p{
     font-weight: bold;
