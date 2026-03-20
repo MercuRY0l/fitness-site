@@ -4,7 +4,9 @@ import { showToast } from "./showToast.js";
 export function register(){
 
     const reg_btn = document.querySelector(".reg-btn")
-    const modal = document.querySelector(".modal")
+
+    const reg_modal = document.getElementById("modal-register")
+    const login_modal = document.getElementById("modal-login")
 
     if (!reg_btn) return;
 
@@ -54,7 +56,8 @@ export function register(){
 
         showToast("Регистрация прошла успешно", "success")
         
-        modal.style.display = "none"
+        reg_modal.classList.remove("active")
+        login_modal.classList.add("active")
     }
 
 
