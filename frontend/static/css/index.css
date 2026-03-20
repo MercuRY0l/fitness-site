@@ -219,3 +219,63 @@ flex-direction: column;
 gap: 15px;
 }
 }
+
+
+#toast-container {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.toast {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-width: 260px;
+    padding: 14px 18px;
+    border-radius: 12px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+    opacity: 0;
+
+    animation:
+        toastIn 0.45s cubic-bezier(0.4, 0, 0.2, 1) forwards,
+        toastOut 0.4s cubic-bezier(0.4, 0, 0.2, 1) 3s forwards;
+}
+
+/* Успех */
+.toast.success {
+    background: linear-gradient(135deg, #3bbf8a, #2e9f74);
+}
+
+/* Ошибка */
+.toast.error {
+    background: linear-gradient(135deg, #d86a6a, #b84b4b);
+}
+
+/* Анимация появления */
+@keyframes toastIn {
+    from {
+        transform: translateX(120%) scale(0.95);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0) scale(1);
+        opacity: 1;
+    }
+}
+
+/* Анимация исчезновения */
+@keyframes toastOut {
+    to {
+        transform: translateX(120%) scale(0.95);
+        opacity: 0;
+    }
+}
