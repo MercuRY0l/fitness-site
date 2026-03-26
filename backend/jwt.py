@@ -6,6 +6,8 @@ import datetime
 from dotenv import load_dotenv
 from datetime import datetime, timezone, timedelta
 
+from fastapi import HTTPException
+
 
 load_dotenv()
 
@@ -24,4 +26,16 @@ def create_token(data: dict, expires_delta : int):
 
 
 def update_token(refresh_token : str):
-    pass    
+    try:
+        payload = jwt.decode(refresh_token, SECRET_KEY, algorithms=[ALGHORITHM])
+        user_id = int(payload.get("user_id"))
+        user_login = str(payload.get("login"))
+        user_email = str(payload.get("email"))
+    
+    except jwt.ExpiredSignatureError:
+        raise HTTPException(status_code=400, detail={"error" : "Refresh токен истек!"})
+    except jwt.PyJWKError:
+        raise HTTPException(status_code=400, detail={"error" : "Неверный refresh токен!"})
+    
+    access_token = create_token({"user_id" : user_id, "login" : user_login, "email" : user_email}, timedelta(minutes=ACCESS_TOKEN_EXPIRES))
+    return access_token

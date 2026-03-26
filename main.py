@@ -11,6 +11,7 @@ from backend.routers.main_page_router import main_page_router
 from backend.routers.training_page_router import training_page_router
 from backend.routers.registration_router import reg_router
 from backend.routers.login_router import login_router
+from backend.routers.refresh_token_router import refresh_token_router
 
 
 @asynccontextmanager
@@ -31,6 +32,8 @@ app.include_router(main_page_router)
 app.include_router(training_page_router)
 app.include_router(reg_router)
 app.include_router(login_router)
+app.include_router(refresh_token_router)
+
 app.mount("/static", StaticFiles(directory="frontend/static"), name="static")
 
 

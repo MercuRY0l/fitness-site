@@ -35,6 +35,7 @@ export function login(){
             }
         showToast("Вы успешно вошли!", "success")
         log_modal.classList.remove("active")
+
     }
 
 
