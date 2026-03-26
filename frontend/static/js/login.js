@@ -29,14 +29,12 @@ export function login(){
 
         if (!response.ok) {
                 const error = await response.json();
-                showToast(error.message, "error");
-                console.log(error.message);
+                const errorMessage = error.detail?.error || "Произошла ошибка при авторизации"
+                showToast(errorMessage, "error");
                 return;
             }
-
         showToast("Вы успешно вошли!", "success")
         log_modal.classList.remove("active")
-
     }
 
 
