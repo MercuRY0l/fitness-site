@@ -8,7 +8,7 @@ from ..pydantic_models.log_pydantic import LoginUser
 from ..hasher import verify_password
 from ..jwt import create_token, ACCESS_TOKEN_EXPIRES, REFRESH_TOKEN_EXPIRES
 
-from datetime import timedelta
+from datetime import timedelta, datetime, timezone
 
 login_router = APIRouter()
 
@@ -26,11 +26,13 @@ async def login(response: Response , data : LoginUser):
     
     access_token = create_token({"user_id" : user.id, "login" : user.login,  "email" : user.email}, timedelta(minutes=ACCESS_TOKEN_EXPIRES))
     refresh_token = create_token({"user_id" : user.id, "login" : user.login,  "email" : user.email}, timedelta(days=REFRESH_TOKEN_EXPIRES))
+
+    expire = datetime.now(timezone.utc) + timedelta(days=REFRESH_TOKEN_EXPIRES)
     
     response.set_cookie(
         key="refresh_token",
         value=refresh_token,
-        expires=REFRESH_TOKEN_EXPIRES,
+        expires=expire,
         samesite="lax",
         secure=False, # на локальную разработку
         httponly=True
