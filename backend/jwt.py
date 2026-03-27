@@ -39,3 +39,5 @@ def update_token(refresh_token : str):
     
     access_token = create_token({"user_id" : user_id, "login" : user_login, "email" : user_email}, timedelta(minutes=ACCESS_TOKEN_EXPIRES))
     return access_token
+
+
