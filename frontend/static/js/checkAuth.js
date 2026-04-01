@@ -1,5 +1,5 @@
 
-
+import {showToast} from "./showToast.js"
 
 export async function checkAuth(){
 
@@ -11,7 +11,9 @@ export async function checkAuth(){
     });
 
     const data = await response.json();
-    console.log(data);
-
+    
+    if (!response.ok){
+        showToast("Необходимо авторизоваться!", "error")
+    }
 
 }
