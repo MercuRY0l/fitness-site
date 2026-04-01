@@ -35,19 +35,27 @@ async def login(response: Response , data : LoginUser):
     access_token = create_token({"user_id" : user.id, "login" : user.login,  "email" : user.email, "type" : "access"}, timedelta(minutes=ACCESS_TOKEN_EXPIRES))
     refresh_token = create_token({"user_id" : user.id, "login" : user.login,  "email" : user.email, "type" : "refresh"}, timedelta(days=REFRESH_TOKEN_EXPIRES))
 
-    expire = datetime.now(timezone.utc) + timedelta(days=REFRESH_TOKEN_EXPIRES)
-    
+    expire_refresh = datetime.now(timezone.utc) + timedelta(days=REFRESH_TOKEN_EXPIRES)
+    expire_access = datetime.now(timezone.utc) + timedelta(minutes=ACCESS_TOKEN_EXPIRES)
     
     response.set_cookie(
         key="refresh_token",
         value=refresh_token,
-        expires=expire,
+        expires=expire_refresh,
         samesite="lax",
         secure=False, # на локальную разработку
         httponly=True
     )
     
-    return {"message" : "Пользователь успешно вошел!", "access_token" : access_token, "token_type" : "bearer"}
-
+    response.set_cookie(
+        key="access_token",
+        value=access_token,
+        expires=expire_access,
+        samesite="lax",
+        secure=False,
+        httponly=True
+    )
+    
+    return {"message" : "Пользователь успешно вошел!"}
 
 
