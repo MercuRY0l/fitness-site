@@ -10,6 +10,9 @@ from backend.database.connect import init_models
 from backend.routers.main_page_router import main_page_router
 from backend.routers.training_page_router import training_page_router
 from backend.routers.registration_router import reg_router
+from backend.routers.login_router import login_router
+from backend.routers.refresh_token_router import refresh_token_router
+from backend.routers.logout_router import logout_router
 
 
 @asynccontextmanager
@@ -29,6 +32,10 @@ app.add_middleware(
 app.include_router(main_page_router)
 app.include_router(training_page_router)
 app.include_router(reg_router)
+app.include_router(login_router)
+app.include_router(refresh_token_router)
+app.include_router(logout_router)
+
 app.mount("/static", StaticFiles(directory="frontend/static"), name="static")
 
 

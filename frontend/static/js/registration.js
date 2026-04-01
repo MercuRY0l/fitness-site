@@ -10,31 +10,35 @@ export function register(){
 
     if (!reg_btn) return;
 
-    const login_input = document.getElementById("login-input")
-    const email_input = document.getElementById("email-input")
-    const password_input = document.getElementById("password-input")
-    const password_repeat_input = document.getElementById("password-repeat-input")
+    const login_input = document.getElementById("reg-login-input")
+    const email_input = document.getElementById("reg-email-input")
+    const password_input = document.getElementById("reg-password-input")
+    const password_repeat_input = document.getElementById("reg-password-repeat-input")
 
     reg_btn.onclick = async () =>{
 
 
         if (login_input.value.length < 6){
-        showToast("Длинна логина должна быть больше 5 символов!", "error")
+            showToast("Длинна логина должна быть больше 5 символов!", "error")
+            return;
         }
 
         if (password_input.value != password_repeat_input.value){
             showToast("Пароли не совпадают!", "error")
+            return;
         }
 
         if (password_input.value.length < 6){
             showToast("Длинна пароля должна быть больше 5 символов!", "error")
+            return;
         }
 
         if (password_input.value.length > 255){
             showToast("Длинна пароля должна быть меньше 255 символов!", "error")
+            return;
         }
 
-        const response = await fetch("http://localhost:5000/auth/register", {
+        const response = await fetch("http://127.0.0.1:5000/auth/register", {
             method : "POST",
             headers : {"Content-Type" : "application/json"},
             body : JSON.stringify({
@@ -47,6 +51,7 @@ export function register(){
         })
 
         const data = await response.json()
+        console.log(data);
 
         if (!response.ok){
             const ErrorMessage = data?.detail?.error || "Произошла ошибка при регистрации"
