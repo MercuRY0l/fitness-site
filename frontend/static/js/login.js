@@ -33,6 +33,8 @@ export function login(){
                 showToast(errorMessage, "error");
                 return;
             }
+        const data = await response.json();
+        window.accessToken = data.access_token;
         showToast("Вы успешно вошли!", "success")
         log_modal.classList.remove("active")
 
