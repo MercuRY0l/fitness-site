@@ -50,6 +50,9 @@ class Workout_Exercises(Base):
     workout_id : Mapped[int] = mapped_column(Integer, ForeignKey("workouts.id"))
     exercise_id : Mapped[int] = mapped_column(Integer, ForeignKey("exercises.id"))
     
+    sets : Mapped[int] = mapped_column(Integer, nullable=False, default=3)
+    reps : Mapped[int] = mapped_column(Integer, nullable=False, default=10)
+    
     workout = Mapped[list["Workout_Exercises"]] = relationship("Workouts", back_populates="exercises")
     exercise : Mapped[list["Workout_Exercises"]] = relationship("Exercises", back_populates="workouts")
     
