@@ -129,10 +129,15 @@ justify-content: center;
 }
 
 .add-button-container{
-display: flex;
-justify-content: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;;
+    gap: 30px;
 
+    width: 30%;
+    margin: 0 auto;
 }
+
 
 .workout{
 background:#1c1c1c;
