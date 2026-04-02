@@ -1,11 +1,13 @@
 import { initAuthModals } from "./initAuthModals.js"
 import { register } from "./registration.js";
 import { login } from "./login.js";
-import { checkAuth } from "./checkAuth.js";
+import { protectLink } from "./protectLink.js";
+
 
 document.addEventListener("DOMContentLoaded", async () => {
     initAuthModals();
     register();
     login();
-    await checkAuth();
+    protectLink("to_train_page");
+    
 });

@@ -3,7 +3,9 @@ export function initAuthModals() {
   const loginModal = document.getElementById("modal-login");
   const registerModal = document.getElementById("modal-register");
 
-  document.querySelector(".open-login-btn")
+
+
+  document.getElementById("open-modal-user-btn")
     .addEventListener("click", () => {
       loginModal.classList.add("active");
     });

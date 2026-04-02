@@ -9,8 +9,6 @@ training_page_router = APIRouter()
 
 templates = Jinja2Templates("frontend/templates")
 
-
 @training_page_router.get("/training")
 async def load_training_page(request : Request, current_user : dict = Depends(get_current_user)):
     return templates.TemplateResponse("training.html", {"request" : request, "user" : current_user})
-
