@@ -25,23 +25,42 @@ class Exercises(Base):
     id : Mapped[int] = mapped_column(Integer, primary_key=True)
     title : Mapped[str] = mapped_column(String(255), nullable=False , unique=True)
     description : Mapped[str] = mapped_column(String(512), nullable=False)
-    difficulty : Mapped[int] = mapped_column(Integer(10), nullable=False)
+    difficulty : Mapped[int] = mapped_column(Integer, nullable=False)
     image : Mapped[str] = mapped_column(String(255))
     
-    workouts : Mapped[list["Workout_Exercises"]] = relationship("Workouts", back_populates="exercise")
+    workouts: Mapped[list["Workouts"]] = relationship(
+    "Workouts",
+    secondary="workout_exercises",
+    back_populates="exercises"
+    )
+
+    workout_links: Mapped[list["Workout_Exercises"]] = relationship(
+        "Workout_Exercises",
+        back_populates="exercise"
+    )
 
 class Workouts(Base):
     
     __tablename__ = "workouts"
     
     id : Mapped[int] = mapped_column(Integer, primary_key=True)
-    user_id : Mapped[int] = mapped_column(nullable=False)
+    user_id : Mapped[int] = mapped_column(Integer, ForeignKey("users.id"))
     title : Mapped[str] = mapped_column(String(255), nullable=False)
     date : Mapped[int] = mapped_column(DateTime, nullable=False)
     created_at : Mapped[DateTime] = mapped_column(DateTime, default=func.now())
     
-    user : Mapped[list["Users"]] = relationship("Users", back_populates="workouts")
-    exercises : Mapped[list["Workout_Exercises"]] = relationship("Exercises", back_populates="workout")
+    user : Mapped["Users"] = relationship("Users", back_populates="workouts")
+    
+    exercises: Mapped[list["Exercises"]] = relationship(
+    "Exercises",
+    secondary="workout_exercises",
+    back_populates="workouts"
+    )
+
+    exercise_links: Mapped[list["Workout_Exercises"]] = relationship(
+    "Workout_Exercises",
+    back_populates="workout"
+    )
     
 class Workout_Exercises(Base):
     __tablename__ = "workout_exercises"
@@ -53,8 +72,15 @@ class Workout_Exercises(Base):
     sets : Mapped[int] = mapped_column(Integer, nullable=False, default=3)
     reps : Mapped[int] = mapped_column(Integer, nullable=False, default=10)
     
-    workout = Mapped[list["Workout_Exercises"]] = relationship("Workouts", back_populates="exercises")
-    exercise : Mapped[list["Workout_Exercises"]] = relationship("Exercises", back_populates="workouts")
+    workout: Mapped["Workouts"] = relationship(
+    "Workouts",
+    back_populates="exercise_links"
+    )
+
+    exercise: Mapped["Exercises"] = relationship(
+    "Exercises",
+    back_populates="workout_links"
+    )
     
     
     
