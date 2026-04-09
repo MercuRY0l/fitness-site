@@ -3,6 +3,13 @@ export function initAuthModals() {
   const loginModal = document.getElementById("modal-login");
   const registerModal = document.getElementById("modal-register");
 
+  if (!loginModal){
+      return;
+  }
+
+  if (!registerModal){
+    return;
+  }
 
 
   document.getElementById("open-modal-user-btn")

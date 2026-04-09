@@ -5,8 +5,6 @@ from sqlalchemy.orm import DeclarativeBase, mapped_column, Mapped, relationship
 
 class Base(DeclarativeBase):
     pass
-
-
 class Users(Base):
     __tablename__ = "users"
     
@@ -47,7 +45,7 @@ class Workouts(Base):
     user_id : Mapped[int] = mapped_column(Integer, ForeignKey("users.id"))
     title : Mapped[str] = mapped_column(String(255), nullable=False)
     date : Mapped[int] = mapped_column(DateTime, nullable=False)
-    created_at : Mapped[DateTime] = mapped_column(DateTime, default=func.now())
+    created_at : Mapped[DateTime] = mapped_column(DateTime(timezone=True), default=func.now())
     
     user : Mapped["Users"] = relationship("Users", back_populates="workouts")
     

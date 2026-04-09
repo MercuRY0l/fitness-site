@@ -11,6 +11,14 @@ export function login(){
     const login_input = document.getElementById("login-input-login")
     const password_input = document.getElementById("login-input-password")
 
+    if (!login_btn){
+        return;
+    }
+
+    if (!log_modal){
+        return;
+    }
+
     login_btn.onclick = async () => {
         
         const response = await fetch("http://127.0.0.1:5000/auth/login", {

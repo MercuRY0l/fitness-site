@@ -2,7 +2,7 @@
 
 
 from fastapi import APIRouter, HTTPException
-from ..database.repository import UserRepository
+from ..database.repositories.user_repo import UserRepository
 from ..pydantic_models.reg_pydantic import RegistrationUser
 
 from ..hasher import hash_password

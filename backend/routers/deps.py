@@ -5,7 +5,7 @@ import jwt
 from fastapi import HTTPException, Cookie
 
 from ..jwt import SECRET_KEY, ALGORITHM
-from ..database.repository import UserRepository
+from ..database.repositories.user_repo import UserRepository
 
 async def get_current_user(access_token : str = Cookie(None)):
     

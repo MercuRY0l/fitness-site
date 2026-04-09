@@ -1,7 +1,7 @@
 
 
 from fastapi import APIRouter, HTTPException, Response, Depends
-from ..database.repository import UserRepository
+from ..database.repositories.user_repo import UserRepository
 from ..pydantic_models.log_pydantic import LoginUser
 
 from ..hasher import verify_password
