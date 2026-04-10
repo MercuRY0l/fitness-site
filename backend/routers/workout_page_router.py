@@ -63,6 +63,17 @@ async def add_new_exercise(data : ExercisesToWorkout):
     await workout_ex_repo.add_exercise_to_workout(workout_id=data.workout_id, exercise_id=data.exercise_id, sets=data.sets, reps=data.reps)
     return {"message" : "Упражнение успешно добавлено в тренировку"}
      
+
+@workout_page_router.delete("/exercises/delete")
+async def delete_exercise_from_workout(data : ExercisesToWorkout):
+    repo = WorkoutExercisesRepository()
+    
+    if (not data.exercise_id):
+        raise HTTPException(status_code=404, detail="Упражнение не найдено")
+    
+    await repo.remove_exercise(data.exercise_id)
+    return {"message" : "Упражнение успешно удалено из тренировки"}
+     
      
 @workout_page_router.post("/workouts/create")
 async def add_new_training(data : WorkoutPydantic):
@@ -79,5 +90,18 @@ async def add_new_training(data : WorkoutPydantic):
     workout = await workout_repo.create_workout(user_id=data.user_id, title=data.title, date=data.workout_date, created_at=datetime.now(timezone.utc))
     return workout
     
+
+@workout_page_router.delete("/workout/delete")
+async def delete_workout(data : WorkoutPydantic):
+    repo = WorkoutRepository()
     
+    
+    workout = await repo.find_workout_by_title(data.title)
+    
+    if (not workout):
+        raise HTTPException(status_code=404, detail="Тренировка не найдена")
+    
+    
+    await repo.delete_workout_by_workout_id(workout.id)
+    return {"message" : "Упражнение успешно удалено из тренировки"}
     
