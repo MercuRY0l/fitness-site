@@ -12,8 +12,9 @@ from backend.database.repositories.exercise_repo import ExerciseRepository
 from backend.database.repositories.workout_exercises import WorkoutExercisesRepository
 from backend.database.repositories.workout_repo import WorkoutRepository
 
-from ..pydantic_models.exercises_pydantic import ExercisesToWorkout
+from ..pydantic_models.exercises_pydantic import ExercisesToWorkout, ExerciseFromWorkout
 from ..pydantic_models.workout_pydantic import WorkoutPydantic
+
 
 workout_page_router = APIRouter()
 
@@ -104,4 +105,16 @@ async def delete_workout(data : WorkoutPydantic):
     
     await repo.delete_workout_by_workout_id(workout.id)
     return {"message" : "Упражнение успешно удалено из тренировки"}
+    
+    
+@workout_page_router.put("/exercises/update")
+async def update_exercise(data : ExerciseFromWorkout):
+    repo = WorkoutExercisesRepository()
+    
+    if (not data):
+        raise HTTPException(status_code=404, detail="Упражнение на найдено")
+    
+    await repo.update_exercises_in_workout(data.exercise_id, workout_reps=data.exercise_reps, workout_sets=data.exercise_sets)    
+    return {"message" : "Успешное обновление данных в упражнении"}
+    
     
