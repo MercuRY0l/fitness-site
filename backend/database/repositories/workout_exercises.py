@@ -2,6 +2,7 @@
 from ..connect import async_session
 from ..models import Workout_Exercises
 from sqlalchemy import select, delete
+from typing import Optional
 
 class WorkoutExercisesRepository:
     
@@ -33,6 +34,14 @@ class WorkoutExercisesRepository:
             res = await session.execute(stmt)
             return res.scalars().all()
 
+    async def get_workout_exercise(self, exercise_id: int):
+        async with async_session() as session:
+            stmt = select(Workout_Exercises).where(
+                Workout_Exercises.exercise_id == exercise_id
+            )
+            res = await session.execute(stmt)
+            return res.scalar_one_or_none()
+    
     async def remove_exercise(self, workout_exercise_id: int):
         async with async_session() as session:
             stmt = delete(Workout_Exercises).where(
@@ -42,3 +51,25 @@ class WorkoutExercisesRepository:
             await session.commit()
             return res.rowcount
                  
+                 
+    async def update_exercises_in_workout(self, exercise_id:int , workout_reps : int | None = None, workout_sets : int | None = None):
+        async with async_session() as session:
+            exercise = await self.get_workout_exercise(exercise_id=exercise_id)
+            
+            if (not exercise):
+                return None
+            
+            if (workout_reps is not None):
+                self.reps = workout_reps
+            
+            if (workout_sets is not None):
+                self.sets = workout_sets
+            
+            session.commit()
+            session.refresh(exercise)
+            
+            return exercise
+            
+            
+            
+            
