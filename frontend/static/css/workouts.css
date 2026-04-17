@@ -43,6 +43,40 @@ color:white;
 text-decoration:none;
 }
 
+
+.submenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #222;
+  list-style: none;
+  padding: 10px 0;
+  min-width: 180px;
+
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+
+  transition: 0.3s ease;
+  border-radius: 8px;
+}
+
+.submenu li a {
+  padding: 10px 20px;
+}
+
+.dropdown:hover .submenu {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+
+.submenu li a:hover {
+  background: #333;
+  color: #00ff99;
+}
+
 main{
 padding:40px;
 max-width:1000px;
@@ -177,26 +211,77 @@ border-top: 1px solid gray;
     
 }
 
-
-#exerciseContainer {
-    opacity: 0;
-    transform: translateY(-8px);
-    pointer-events: none;
-    transition: opacity 0.25s ease, transform 0.25s ease;
+.toggle-btn {
+    background: #757876;
+    border: none;
+    color: white;
+    font-size: 18px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
-#exerciseContainer.show {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
+.toggle-btn:hover {
+    transform: scale(1.1);
+}
+
+.workout-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    cursor: pointer;
+}
+
+.workout-header h3 {
+    margin: 0;
+}
+
+.workout-header p {
+    margin: 5px 0 0;
+    font-size: 14px;
+    color: #94a3b8;
+}
+
+.workout-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+    background: #020617;
+}
+
+.workout-body.open {
+    max-height: 1500px;
+    padding: 15px 20px;
+}
+
+input.error {
+  border-color: #ff4d4f;
+  background: #fff1f0;
+}
+
+.error-message {
+  color: #ff4d4f;
+  font-size: 12px;
+  margin-top: 5px;
+  opacity: 0;
+  transform: translateY(-5px);
+  transition: 0.2s;
+}
+
+.error-message.active {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .search-container {
     position: relative;
+    
 }
 
 .search-results {
-    position: absolute;
     top: calc(100% + 6px);
     left: 0;
     width: 100%;
@@ -209,7 +294,7 @@ border-top: 1px solid gray;
 
     box-shadow: 0 10px 30px rgba(0,0,0,0.08);
 
-    max-height: 320px;
+    max-height: 600px;
     overflow-y: auto;
 
     z-index: 1000;

@@ -2,6 +2,8 @@
 from ..connect import async_session
 from ..models import Workout_Exercises
 from sqlalchemy import select, delete
+from sqlalchemy.orm import selectinload
+
 from typing import Optional
 
 class WorkoutExercisesRepository:

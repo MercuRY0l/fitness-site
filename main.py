@@ -43,3 +43,4 @@ app.mount("/static", StaticFiles(directory="frontend/static"), name="static")
 if __name__ == "__main__":
     uvicorn.run(app=app, host="localhost", port=5000)
     
+    

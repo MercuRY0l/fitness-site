@@ -5,8 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Тренировки | FitHard</title>
 <link rel="stylesheet" href="/static/css/workouts.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-
+<link rel="stylesheet" href="https://cloudflare.com">
 </head>
 
 <body>
@@ -19,7 +18,13 @@
   <nav>
     <ul>
       <li><a href="/">Главная</a></li>
-      <li><a href="#">Тренировки</a></li>
+      <li class="dropdown">
+        <a href="#">Тренировки</a>
+      <ul class="submenu">
+        <li><a href="/all_workouts">Все тренировки</a></li>
+        </ul>
+      </li>
+
       <li><a href="#">Личный кабинет</a></li>
     </ul>
   </nav>
@@ -29,37 +34,22 @@
 
 <div class="training-form">
 
-<label>Название тренировки</label>
-<input type="text" id="workout-title" placeholder="Например: Тренировка 1">
+  <label>Название тренировки</label>
+  <input type="text" id="workout-title" placeholder="Например: Тренировка 1">
+  <span class="error-message" id="title-error"></span>
 
-<label>Дата тренировки</label>
-<input type="date" id="workout-date">
+  <label>Дата тренировки</label>
+  <input type="date" id="workout-date">
+  <span class="error-message" id="date-error"></span>
 
-
-<div class="add-button-container">
-  <button class="add-btn" id="createWorkout">Создать тренировку</button>
-</div>
-
-</div>
-
-<div class="exerciseContainer" id="exerciseContainer">
-  <h2>Выберите упражнение</h2>
-
-  <div class="search-container">
-    <input id="searchInput" type="text" placeholder="Введите название упражнения, например: жим лежа" class="search-box">
-    <div class="search-results" id="search-results"></div>
+  <div class="add-button-container">
+    <button class="add-btn" id="createWorkout">Создать тренировку</button>
   </div>
 
-  <input class="workout-sets" id="workout-sets" placeholder="Введите количество подходов, например: 5" required="True"></input>
-  <input class="workout-reps" id="workout-reps" placeholder="Введите количество повторений, например: 10" required="True"></input>
-
 </div>
 
 
-
-</div>
-
-
+<div class="workouts-container" id="workouts-container"></div>
 
 </main>
 
@@ -71,4 +61,6 @@
 <script type="module" src="/static/js/main.js"></script>
 
 </body>
+
+
 </html>

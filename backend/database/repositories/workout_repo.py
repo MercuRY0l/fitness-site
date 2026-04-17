@@ -1,7 +1,9 @@
 
 from ..connect import async_session
-from ..models import Workouts
+from ..models import Workouts, Workout_Exercises
 from sqlalchemy import select, delete
+from sqlalchemy.orm import selectinload
+
 from datetime import datetime
 
 class WorkoutRepository:
@@ -12,11 +14,57 @@ class WorkoutRepository:
             res = await session.execute(stmt)
             return res.scalars().one_or_none()
     
-    async def find_workout_by_user_id(self, user_id : int) -> Workouts:
+    
+    async def find_three_workouts_by_user_id(self, user_id : int) -> Workouts:
         async with async_session() as session:
-            stmt = select(Workouts).where(Workouts.user_id == user_id)
+            stmt = select(Workouts).where(Workouts.user_id == user_id).options(selectinload(Workouts.exercise_links).selectinload(Workout_Exercises.exercise)).limit(3)
             res = await session.execute(stmt)
-            return res.scalars().one_or_none()
+            workouts = res.scalars().unique().all()
+            
+            return [
+            {
+                "workout_id": w.id,
+                "title": w.title,
+                "date": w.date,
+                "exercises": [
+                    {
+                        "exercise_id": l.exercise.id,
+                        "image": l.exercise.image,
+                        "title": l.exercise.title,
+                        "sets": l.sets,
+                        "reps": l.reps,
+                    }
+                    for l in w.exercise_links
+                ],
+            }
+            for w in workouts
+        ]
+    
+    async def find_workouts_by_user_id(self, user_id : int) -> Workouts:
+        async with async_session() as session:
+            stmt = select(Workouts).where(Workouts.user_id == user_id).options(selectinload(Workouts.exercise_links).selectinload(Workout_Exercises.exercise))
+            
+            res = await session.execute(stmt)
+            workouts = res.scalars().unique().all()
+
+            return [
+            {
+                "workout_id": w.id,
+                "title": w.title,
+                "date": w.date,
+                "exercises": [
+                    {
+                        "exercise_id": l.exercise.id,
+                        "image": l.exercise.image,
+                        "title": l.exercise.title,
+                        "sets": l.sets,
+                        "reps": l.reps,
+                    }
+                    for l in w.exercise_links
+                ],
+            }
+            for w in workouts
+        ]
     
     async def create_workout(self, user_id : int, title : str, date : datetime, created_at : datetime):
         async with async_session() as session:
@@ -38,4 +86,5 @@ class WorkoutRepository:
             res = await session.execute(stmt)
             await session.commit()      
             return res.rowcount
-                 
+    
+    

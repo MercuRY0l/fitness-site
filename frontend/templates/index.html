@@ -56,30 +56,32 @@
     </div>
   </div>
 
-  <header>
-    <div class="logo">FitHard</div>
 
-    <nav>
-      <ul>
-        <li><a href="#home">Главная</a></li>
-        <li><a id="to_train_page" href="/workouts">Тренировки</a></li>
-        <li><a href="#contacts">Контакты</a></li>
-        <li><a href="#reviews">Отзывы</a></li>
+<header>
+  <div class="logo">FitHard</div>
+  <nav>
+    <ul>
+      <li><a href="/">Главная</a></li>
+      <li><a href="#contacts">Контакты</a></li>
+      <li><a href="#reviews">Отзывы</a></li>
+      <li class="dropdown">
+        <a href="/workouts">Тренировки</a>
+      <ul class="submenu">
+        <li><a href="/all_workouts">Все тренировки</a></li>
+        </ul>
+      </li>
 
-        <li>
-          <a id="open-modal-user-btn" class="open-login-btn">
-            Личный кабинет
-          </a>
-        </li>
-      </ul>
-    </nav>
-  </header>
+      <li><a id="open-modal-user-btn" class="open-login-btn">Личный кабинет</a></li>
+    </ul>
+  </nav>
+</header>
+
 
  
   <section id="home">
     <h1>Добро пожаловать в FitHard</h1>
     <p>Создавайте свои тренировки, отслеживайте прогресс и достигайте целей быстрее!</p>
-    <a href="/workouts" class="btn">Начать тренироваться</a>
+    <a href="/workouts" class="start-train-btn">Начать тренироваться</a>
   </section>
 
  
@@ -92,6 +94,65 @@
   <section id="reviews">
     <h1>Отзывы пользователей</h1>
     <p>Наши клиенты делятся результатами и впечатлениями от тренировок.</p>
+    
+    <div class="reviews-cards">
+
+    <div class="review-card">
+
+      <div class="avatar-name-container">
+        <img src="static/images/default-avatar.jpg" alt="avatar">
+        <span class="name">Александра</span>
+      </div>
+
+      <div class="stars">★★★★★</div>
+
+      <p class="review-text">
+        Отличное приложение для создания своих тренировок!
+      </p>
+
+      <span class="date">15 января 2026</span>
+
+    </div>
+        
+      
+
+    <div class="review-card">
+
+      <div class="avatar-name-container">
+        <img src="static/images/default-avatar.jpg" alt="avatar">
+        <span class="name">Александра</span>
+      </div>
+
+      <div class="stars">★★★★★</div>
+
+      <p class="review-text">
+        Отличное приложение для создания своих тренировок!
+      </p>
+
+      <span class="date">15 января 2026</span>
+
+    </div>
+      
+
+    <div class="review-card">
+
+    <div class="avatar-name-container">
+      <img src="static/images/default-avatar.jpg" alt="avatar">
+      <span class="name">Александра</span>
+    </div>
+
+    <div class="stars">★★★★★</div>
+
+    <p class="review-text">
+      Отличное приложение для создания своих тренировок!
+    </p>
+
+    <span class="date">15 января 2026</span>
+
+      </div>
+
+      </div>
+    </div>
   </section>
 
   

@@ -163,28 +163,138 @@ color:white;
 text-decoration:none;
 }
 
+.dropdown{
+  position: relative;
+}
+
+.submenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #222;
+  list-style: none;
+  padding: 10px 0;
+  min-width: 180px;
+
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+
+  transition: 0.3s ease;
+  border-radius: 8px;
+}
+
+.submenu li a {
+  padding: 10px 20px;
+  display: block;
+}
+
+.dropdown:hover .submenu {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
 
 section {
-padding: 80px 20px;
-max-width: 1000px;
-margin: 0 auto;
-text-align: center;
-
+  padding: 100px 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
 }
 
 section h1 {
-font-size: 2.5rem;
-margin-bottom: 20px;
-color: whitesmoke;;
+  font-size: 2.8rem;
+  margin-bottom: 15px;
+  color: #ffffff;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+
+section h1::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: #ff3c3c;
+  margin: 15px auto 0;
+  border-radius: 2px;
 }
 
 section p {
-font-size: 1.1rem;
-color: whitesmoke;;
-margin-bottom: 40px;
+  font-size: 1.15rem;
+  color: #bfbfbf;
+  margin-bottom: 50px;
+  line-height: 1.6;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/*REVIEWS SECRION*/
+
+
+.reviews-cards{
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  justify-content: center;
+}
+
+.review-card {
+  min-width: 260px;
+  max-width: 260px;
+
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+
+  border-radius: 20px;
+  padding: 20px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  text-align: left;
+  transition: 0.3s;
+}
+
+.avatar-name-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.avatar-name-container img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.name {
+  color: white;
+  font-weight: 600;
 }
 
 
+.stars {
+  color: gold;
+  font-size: 14px;
+}
+
+.review-text {
+  font-size: 14px;
+  color: #ddd;
+  line-height: 1.5;
+}
+
+
+.date {
+  font-size: 12px;
+  color: #ffffff;
+  margin-top: auto; /* 🔥 прижимает вниз */
+}
 .btn{
 padding:12px 20px;
 background:#ff3c3c;
@@ -198,6 +308,26 @@ font-size:16px;
 .btn:hover {
 background-color: #ae0707;
 }
+
+
+.start-train-btn{
+  padding: 10px 20px;
+  background:#ff3c3c;
+  border:none;
+  color:white;
+  border-radius:6px;
+  cursor:pointer;
+  font-size:16px;
+  text-decoration: none;
+  font-weight: 550;
+  transition: all 0.3s ease;
+}
+
+.start-train-btn:hover{
+  background-color: #ae0707;
+  transform: scale(1.05s);
+}
+
 
 
 footer {

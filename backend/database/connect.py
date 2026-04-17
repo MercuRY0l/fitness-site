@@ -14,7 +14,7 @@ DB_NAME = os.getenv("DB_NAME")
 
 DB_URL = f"postgresql+asyncpg://{DB_ADMIN}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 
-async_engine = create_async_engine(DB_URL, echo=True)
+async_engine = create_async_engine(DB_URL, echo=False)
 async_session = async_sessionmaker(bind=async_engine, expire_on_commit=False)
 
 async def init_models():
