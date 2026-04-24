@@ -1,7 +1,8 @@
 
 import { searchExercise } from "./searchExercise.js";
 import { addToWorkout } from "./addExercise.js";
-import {removeExercise} from "./removeExercise.js"
+import { deleteExerciseFromWorkout } from "./deleteExerciseFromWorkout.js"
+import {showToast} from "../showToast.js"
 
 export function initExerciseUI({ root, workoutId }) {
 
@@ -60,50 +61,85 @@ export function initExerciseUI({ root, workoutId }) {
 
     function showForm(item) {
 
-        item.innerHTML = `
-            <input type="number" placeholder="Подходы" class="sets">
-            <input type="number" placeholder="Повторы" class="reps">
+        const exercise_id = item.dataset.id ?? item.dataset.exercise_id;
+        const title = item.querySelector("b").textContent;
+        const image = item.querySelector("img").src;
+
+        const form = document.createElement("div");
+        form.className = "exercise-form";
+
+        form.innerHTML = `
+            <input type="number" min="1" placeholder="Подходы" class="sets">
+            <input type="number" min="1" placeholder="Повторы" class="reps">
             <button class="save">✔</button>
         `;
 
-        item.querySelector(".save").addEventListener("click", async () => {
-            const sets = item.querySelector(".sets").value;
-            const reps = item.querySelector(".reps").value;
-            const exercise_id = item.dataset.id;
+    
+        item.innerHTML = "";
+        item.appendChild(form);
+
+        form.querySelector(".save").addEventListener("click", async () => {
+
+            const sets = parseInt(form.querySelector(".sets").value);
+            const reps = parseInt(form.querySelector(".reps").value);
+
+            if (!sets || !reps || sets <= 0 || reps <= 0) {
+                showToast("Введите корректные значения", "error");
+                return;
+            }
 
             await addToWorkout(workoutId, exercise_id, sets, reps);
 
-            addExerciseToDOM(item.dataset.id, sets, reps);
+            addExerciseToDOM({
+                id: exercise_id,
+                title,
+                image,
+                sets,
+                reps
+            });
 
-            container.innerHTML = "";
-            input.value = "";
+            resetSearch();
         });
     }
 
+    function resetSearch() {
+        container.querySelector(".search-results")?.remove();
+        input.value = "";
+        container.style.display = "none";
+    }   
 
-    function addExerciseToDOM(exercise_id, sets, reps) {
+    function addExerciseToDOM(exercise) {
 
         const div = document.createElement("div");
-        div.className = "exercise";
-        div.dataset.id = exercise_id;
+        div.className = "exercise-card";
+        div.dataset.id = exercise.id ?? exercise.exercise_id;
 
         div.innerHTML = `
-            <b>Упражнение ${exercise_id}</b>
-            <span>${sets} x ${reps}</span>
-            <button class="delete">Удалить</button>
+            <img class="exercise-img" src="${exercise.image}">
+            
+            <div class="exercise-info">
+                <div class="exercise-title">${exercise.title}</div>
+                <div class="exercise-meta">
+                    <span>${exercise.sets} подходов</span>
+                    <span>${exercise.reps} повторений</span>
+                </div>
+            </div>
+
+            <button class="delete-exercise">✕</button>
         `;
 
         exerciseList.appendChild(div);
     }
 
+
     exerciseList.addEventListener("click", async (e) => {
-        const btn = e.target.closest(".delete");
+        const btn = e.target.closest(".delete-exercise");
         if (!btn) return;
 
-        const item = btn.closest(".exercise");
+        const item = btn.closest(".exercise-card");
         const id = item.dataset.id;
 
-        await removeExercise(workoutId, id);
+        await deleteExerciseFromWorkout(workoutId, id);
 
         item.remove();
     });

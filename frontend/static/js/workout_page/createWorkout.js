@@ -1,6 +1,9 @@
 
 import {showToast} from "../showToast.js"
 import { API_URL } from "../config.js"
+import {renderLastWorkout} from "./loadLastWorkout.js"
+import {loadLastWorkout} from "./loadLastWorkout.js"
+
 
 const workout_title_input = document.getElementById("workout-title")
 const workout_date_input = document.getElementById("workout-date")
@@ -62,32 +65,41 @@ export async function createWorkout(){
     const title = workout_title_input.value.trim();
     const date = workout_date_input.value;
 
-    try{
-        const response = await fetch(`${API_URL}/workouts/create`,
-        {   
-            method : "POST",
-            headers : {"Content-Type" : "application/json"},
-            body : JSON.stringify({
-                "title" : title,
-                "date" : date
-            })
-        })
+    try {
+        const response = await fetch(`${API_URL}/workouts/create`, {   
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ title, date })
+        });
+
+        const data = await response.json(); 
 
         if (!response.ok){
-            const err = await response.json();
-            console.log("Ошибка:", err);
+            console.log("Ошибка:", data);
+            showToast("Ошибка при создании тренировки", "error");
+            return;
         }
 
-        
         showToast("Тренировка успешно создана!");
 
         workout_title_input.value = "";
-        workout_date_input.value = "";  
-    }
+        workout_date_input.value = "";
 
-    catch(error){
+        const workout = await loadLastWorkout();
+
+        if (workout) {
+            await renderLastWorkout(workout);
+        } else {
+            const container = document.getElementById("workouts-container");
+            container.innerHTML = `
+                <div class="empty-state">
+                    Нет тренировок
+                </div>
+            `;
+        }
+
+    } catch(error){
         console.log(error);
+        showToast("Ошибка сети", "error");
     }
-
-
 }

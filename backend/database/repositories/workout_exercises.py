@@ -1,8 +1,8 @@
 
 from ..connect import async_session
-from ..models import Workout_Exercises
+from ..models import Workout_Exercises, Workouts
 from sqlalchemy import select, delete
-from sqlalchemy.orm import selectinload
+from sqlalchemy.orm import selectinload, joinedload
 
 from typing import Optional
 
@@ -67,11 +67,43 @@ class WorkoutExercisesRepository:
             if (workout_sets is not None):
                 self.sets = workout_sets
             
-            session.commit()
-            session.refresh(exercise)
+            await session.commit()
+            await session.refresh(exercise)
             
             return exercise
             
             
+    async def get_exercises_by_workout_id(self, workout_id: int, user_id : int):
+        async with async_session() as session:
+            stmt = (
+             select(Workout_Exercises)
+            .join(Workouts)
+            .options(joinedload(Workout_Exercises.exercise))
+            .where(
+                Workout_Exercises.workout_id == workout_id,
+                Workouts.user_id == user_id
+                )
+            )
+
+            res = await session.execute(stmt)
+            links = res.scalars().all()
+
+            return [
+            {
+                "id": link.id,
+                "title": link.exercise.title,
+                "image": link.exercise.image,
+                "sets": link.sets,
+                "reps": link.reps
+            }
+            for link in links
+        ]
+    
+    async def delete_exercise_from_workout(self , workout_id : int , exercise_id : int):
+        async with async_session() as session:
+            stmt = delete(Workout_Exercises).where(Workout_Exercises.exercise_id == exercise_id, 
+                                                   Workout_Exercises.workout_id == workout_id)
             
-            
+            res = await session.execute(stmt)
+            await session.commit()
+            return res.rowcount

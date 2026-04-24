@@ -1,8 +1,8 @@
 
 from ..connect import async_session
-from ..models import Workouts, Workout_Exercises
+from ..models import Workouts, Workout_Exercises, Exercises
 from sqlalchemy import select, delete, desc
-from sqlalchemy.orm import selectinload
+from sqlalchemy.orm import selectinload, joinedload
 
 from datetime import datetime
 
@@ -92,4 +92,6 @@ class WorkoutRepository:
         async with async_session() as session:
             stmt = select(Workouts).where(Workouts.user_id == user_id).order_by(desc(Workouts.date))
             res = await session.execute(stmt)
-            return res.scalar_one_or_none()
+            return res.scalars().first()
+        
+    

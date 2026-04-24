@@ -14,20 +14,13 @@ from backend.database.repositories.workout_repo import WorkoutRepository
 
 from ..pydantic_models.exercises_pydantic import ExercisesToWorkout, ExerciseFromWorkout
 from ..pydantic_models.workout_pydantic import WorkoutPydantic, WorkoutResponse
+from ..pydantic_models.exercise_pydantic import ExerciseOut
 
 
 workout_page_router = APIRouter()
 
 templates = Jinja2Templates("frontend/templates")
 
-
-@workout_page_router.get("/all_workouts")
-async def load_all_workouts_page(request: Request, current_user : dict = Depends(get_current_user)):
-    return templates.TemplateResponse("all_workouts_page.html", {"request" : request, "user" : current_user})
-
-@workout_page_router.get("/workouts")
-async def load_training_page(request : Request, current_user : dict = Depends(get_current_user)):
-    return templates.TemplateResponse("workout_page.html", {"request" : request, "user" : current_user})
 
 
 @workout_page_router.get("/exercises")
@@ -79,7 +72,26 @@ async def delete_exercise_from_workout(data : ExercisesToWorkout):
     
     await repo.remove_exercise(data.exercise_id)
     return {"message" : "Упражнение успешно удалено из тренировки"}
-     
+
+@workout_page_router.put("/exercises/update")
+async def update_exercise(data : ExerciseFromWorkout):
+    repo = WorkoutExercisesRepository()
+    
+    if (not data):
+        raise HTTPException(status_code=404, detail="Упражнение на найдено")
+    
+    await repo.update_exercises_in_workout(data.exercise_id, workout_reps=data.exercise_reps, workout_sets=data.exercise_sets)    
+    return {"message" : "Успешное обновление данных в упражнении"}
+    
+
+@workout_page_router.get("/all_workouts")
+async def load_all_workouts_page(request: Request, current_user : dict = Depends(get_current_user)):
+    return templates.TemplateResponse("all_workouts_page.html", {"request" : request, "user" : current_user})
+
+@workout_page_router.get("/workouts")
+async def load_training_page(request : Request, current_user : dict = Depends(get_current_user)):
+    return templates.TemplateResponse("workout_page.html", {"request" : request, "user" : current_user})
+
      
 @workout_page_router.post("/workouts/create")
 async def add_new_training(data : WorkoutPydantic, current_user: dict = Depends(get_current_user)):
@@ -95,21 +107,14 @@ async def add_new_training(data : WorkoutPydantic, current_user: dict = Depends(
     
     workout = await workout_repo.create_workout(user_id=current_user.id, title=data.title, date=data.date, created_at=datetime.now(timezone.utc))
     return workout
-    
 
-@workout_page_router.delete("/workout/delete")
-async def delete_workout(data : WorkoutPydantic):
+
+@workout_page_router.delete("/workout/delete/{workout_id}")
+async def delete_workout(workout_id : int):
     repo = WorkoutRepository()
     
-    
-    workout = await repo.find_workout_by_title(data.title)
-    
-    if (not workout):
-        raise HTTPException(status_code=404, detail="Тренировка не найдена")
-    
-    
-    await repo.delete_workout_by_workout_id(workout.id)
-    return {"message" : "Упражнение успешно удалено из тренировки"}
+    await repo.delete_workout_by_workout_id(workout_id=workout_id)
+    return {"message" : "Тренировка успешно удалена"}
 
 
 @workout_page_router.get("/workouts/all", response_model=list[WorkoutResponse])
@@ -117,15 +122,36 @@ async def get_workouts(current_user : dict = Depends(get_current_user)):
     workout_repo = WorkoutRepository()
     return await workout_repo.find_three_workouts_by_user_id(current_user.id)
     
-    
 
-@workout_page_router.put("/exercises/update")
-async def update_exercise(data : ExerciseFromWorkout):
-    repo = WorkoutExercisesRepository()
+@workout_page_router.get("/workouts/last")
+async def get_last_workout(current_user : dict = Depends(get_current_user)):
+    workout_repo = WorkoutRepository()
+    return await workout_repo.find_last_workout(current_user.id)
+
+@workout_page_router.get("/workouts/{workout_id}/exercises" , response_model = list[ExerciseOut])
+async def get_exercises_in_workout(workout_id : int, current_user : dict = Depends(get_current_user)):
+    workout_repo = WorkoutExercisesRepository()
+    return await workout_repo.get_exercises_by_workout_id(workout_id=workout_id, user_id=current_user.id)
     
-    if (not data):
-        raise HTTPException(status_code=404, detail="Упражнение на найдено")
+@workout_page_router.delete("/workouts/{workout_id}/exercises/{exercise_id}")
+async def delete_exercise_from_workout(workout_id : int , exercise_id : int):
+    workout_exercises_repo = WorkoutExercisesRepository()
     
-    await repo.update_exercises_in_workout(data.exercise_id, workout_reps=data.exercise_reps, workout_sets=data.exercise_sets)    
-    return {"message" : "Успешное обновление данных в упражнении"}
+    if (not exercise_id):
+        raise HTTPException(status_code=404, detail={"error" : "Exercise_id не найден"})
+    
+    if (not workout_id):
+        raise HTTPException(status_code=404, detail={"error" : "Workout_id не найден"})
+    
+    res = await workout_exercises_repo.delete_exercise_from_workout(workout_id=workout_id, exercise_id=exercise_id)
+    
+    if res == 0:
+        raise HTTPException(
+            status_code=404,
+            detail="Упражнение не найдено в тренировке"
+        )
+
+    return {
+        "message": "Упражнение успешно удалено из тренировки"
+    }
     

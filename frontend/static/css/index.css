@@ -293,7 +293,7 @@ section p {
 .date {
   font-size: 12px;
   color: #ffffff;
-  margin-top: auto; /* 🔥 прижимает вниз */
+  margin-top: auto;
 }
 .btn{
 padding:12px 20px;
@@ -380,17 +380,14 @@ gap: 15px;
         toastOut 0.4s cubic-bezier(0.4, 0, 0.2, 1) 3s forwards;
 }
 
-/* Успех */
 .toast.success {
     background: linear-gradient(135deg, #3bbf8a, #2e9f74);
 }
 
-/* Ошибка */
 .toast.error {
     background: linear-gradient(135deg, #d86a6a, #b84b4b);
 }
 
-/* Анимация появления */
 @keyframes toastIn {
     from {
         transform: translateX(120%) scale(0.95);
@@ -402,7 +399,7 @@ gap: 15px;
     }
 }
 
-/* Анимация исчезновения */
+
 @keyframes toastOut {
     to {
         transform: translateX(120%) scale(0.95);
