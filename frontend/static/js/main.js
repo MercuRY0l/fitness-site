@@ -2,7 +2,7 @@ import { initAuthModals } from "./initAuthModals.js"
 import { register } from "./registration.js";
 import { login } from "./login.js";
 import { initWorkoutPage } from "./workout_page/initWorkoutpage.js";
-
+import { initAllWorkoutsPage } from "./workout_page/all_workouts_page/initAllWorkoutsPage.js";
 
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -11,6 +11,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     login();
     
     await initWorkoutPage();
-
+    await initAllWorkoutsPage();
     
 });

@@ -30,7 +30,7 @@ export async function renderLastWorkout(workout){
         return;
     }
 
-    const container = document.getElementById("workouts-container")
+    const container = document.getElementById("last-workout-container")
 
     container.innerHTML = "";
     

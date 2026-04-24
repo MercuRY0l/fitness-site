@@ -1,8 +1,8 @@
 
-import { API_URL } from "../config.js";
-import {initExerciseUI} from "./exerciseUI.js"
+import { API_URL } from "../../config.js";
+import {initExerciseUI} from "../exerciseUI.js"
 
-function renderWorkout(workout) {
+export function renderWorkout(workout) {
 
     if (!workout){
         return;
@@ -25,24 +25,27 @@ function renderWorkout(workout) {
     `).join("");
 
     workoutDiv.innerHTML = `
-        <div class="workout-header">
-            <div>
-                <h3>${workout.title}</h3>
-                <p>${new Date(workout.date).toLocaleDateString()}</p>
+            <div class="workout-header">
+                <div>
+                    <h3>${workout.title}</h3>
+                    <p>${new Date(workout.date).toLocaleDateString()}</p>
+                </div>
+                <div class="workout-header-actions">
+                    <button class="toggle-btn">›</button>
+                    <button class="delete-btn">✖</button>
+                </div>
             </div>
-            <button class="toggle-btn">›</button>
-        </div>
 
-        <div class="workout-body">
-            <div class="exercise-list" id="exercise-list">
-                ${exercisesHTML}
+            <div class="workout-body">
+                <div class="exercise-list" id="exercise-list">
+                    ${exercisesHTML}
+                </div>
+                <button class="open-add-exercise" data-id="${workout.id}">+ Добавить упражнение</button>
+                <div class="search-container">
+                    <input class="exercise-input" placeholder="Введите название упражнения например: жим лежа">
+                </div>
             </div>
-            <button class="open-add-exercise" data-id="${workout.id}">+ Добавить упражнение</button>
-            <div class="search-container" style="display:none;">
-                <input class="exercise-input" placeholder="Введите название упражнения например: жим лежа">
-            </div>
-        </div>
-    `;
+        `;
 
     const toggleBtn = workoutDiv.querySelector(".toggle-btn")
     const body = workoutDiv.querySelector(".workout-body");
@@ -89,7 +92,7 @@ export async function loadWorkouts() {
         const container = document.getElementById("workouts-container");
 
         if (workouts.length === 0) {
-            container.innerHTML = "<p>Нет тренировок</p>";
+            container.innerHTML = "<h2>Нет тренировок</h2>";
             return;
         }
 
