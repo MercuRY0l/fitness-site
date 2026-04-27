@@ -12,7 +12,7 @@ async def get_current_user(access_token : str = Cookie(None)):
     try:
         
         if not access_token:
-            raise HTTPException(status_code=400, detail={"error" : "Access токен не найден"})
+            raise HTTPException(status_code=401, detail={"error" : "Access токен не найден"})
         
         payload = jwt.decode(access_token, SECRET_KEY, algorithms=[ALGORITHM])
     

@@ -9,19 +9,27 @@ import { loadLastWorkout } from "./loadLastWorkout.js";
 export async function initWorkoutPage(){
     
     const workout = await loadLastWorkout();
-    await renderLastWorkout(workout);
+    
+    if (workout){
+        await renderLastWorkout(workout);
+    }
     
     const create_btn = document.getElementById("createWorkout");
     if (create_btn) {
         create_btn.addEventListener("click", async () => {
-            await createWorkout();
+            const created = await createWorkout();
+
+            if(!created){
+                return;
+            }
 
             const newWorkout = await loadLastWorkout();
-            await renderLastWorkout(newWorkout);
+
+            if (newWorkout) {
+                await renderLastWorkout(newWorkout);
+            }
+
         });
     }
-
-
-
     
 }

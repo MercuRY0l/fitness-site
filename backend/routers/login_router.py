@@ -44,7 +44,8 @@ async def login(response: Response , data : LoginUser):
         expires=expire_refresh,
         samesite="lax",
         secure=False, # на локальную разработку
-        httponly=True
+        httponly=True,
+        path="/"
     )
     
     response.set_cookie(
@@ -53,7 +54,8 @@ async def login(response: Response , data : LoginUser):
         expires=expire_access,
         samesite="lax",
         secure=False,
-        httponly=True
+        httponly=True,
+        path="/"
     )
     
     return {"message" : "Пользователь успешно вошел!"}

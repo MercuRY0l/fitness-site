@@ -1,8 +1,8 @@
 
 import {showToast} from "../showToast.js"
 import { API_URL } from "../config.js"
-import {renderLastWorkout} from "./loadLastWorkout.js"
-import {loadLastWorkout} from "./loadLastWorkout.js"
+import {renderLastWorkout, loadLastWorkout} from "./loadLastWorkout.js"
+import {apiFetch} from "../auth/apiFetch.js"
 
 
 const workout_title_input = document.getElementById("workout-title")
@@ -60,13 +60,13 @@ export async function createWorkout(){
     const isTitleValid = validateTitle();
     const isDateValid = validateDate();
 
-    if (!isTitleValid || !isDateValid) return;
+    if (!isTitleValid || !isDateValid) return false;
 
     const title = workout_title_input.value.trim();
     const date = workout_date_input.value;
 
     try {
-        const response = await fetch(`${API_URL}/workouts/create`, {   
+        const response = await apiFetch(`${API_URL}/workouts/create`, {   
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ title, date })
@@ -77,7 +77,7 @@ export async function createWorkout(){
         if (!response.ok){
             console.log("Ошибка:", data);
             showToast("Ошибка при создании тренировки", "error");
-            return;
+            return false;
         }
 
         showToast("Тренировка успешно создана!");
@@ -85,21 +85,11 @@ export async function createWorkout(){
         workout_title_input.value = "";
         workout_date_input.value = "";
 
-        const workout = await loadLastWorkout();
-
-        if (workout) {
-            await renderLastWorkout(workout);
-        } else {
-            const container = document.getElementById("workouts-container");
-            container.innerHTML = `
-                <div class="empty-state">
-                    Нет тренировок
-                </div>
-            `;
-        }
+        return true;
 
     } catch(error){
         console.log(error);
         showToast("Ошибка сети", "error");
+        return false;
     }
 }

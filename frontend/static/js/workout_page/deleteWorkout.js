@@ -3,11 +3,12 @@
 import {API_URL} from "../config.js";
 import {renderLastWorkout} from "./loadLastWorkout.js"
 import {loadLastWorkout} from "./loadLastWorkout.js"
+import { apiFetch } from "../auth/apiFetch.js";
 
 export async function deleteWorkout(workout_id){
 
     try{
-        const response = await fetch(`${API_URL}/workout/delete/${workout_id}`, {method : "DELETE"})
+        const response = await apiFetch(`${API_URL}/workout/delete/${workout_id}`, {method : "DELETE"})
         
         if (!response.ok){
             const err = await response.json();

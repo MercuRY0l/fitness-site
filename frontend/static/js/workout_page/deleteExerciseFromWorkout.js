@@ -1,9 +1,10 @@
 
 import { API_URL } from "../config.js";
+import { apiFetch } from "../auth/apiFetch.js"
 
 export async function deleteExerciseFromWorkout(workout_id, exercise_id) {
     try {
-        const res = await fetch(
+        const res = await apiFetch(
             `${API_URL}/workouts/${workout_id}/exercises/${exercise_id}`,
             {
                 method: "DELETE"

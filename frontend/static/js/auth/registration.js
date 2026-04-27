@@ -1,4 +1,4 @@
-import { showToast } from "./showToast.js";
+import { showToast } from "../showToast.js";
 
 
 export function register(){

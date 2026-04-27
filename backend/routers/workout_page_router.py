@@ -44,7 +44,7 @@ async def search_exercise(query: str = Query(...)):
     
     
 @workout_page_router.post("/exercises/add-to-workout")
-async def add_new_exercise(data : ExercisesToWorkout):
+async def add_new_exercise(data : ExercisesToWorkout, current_user : dict = Depends(get_current_user)):
     exerices_repo = ExerciseRepository()
     workout_ex_repo = WorkoutExercisesRepository()
     workout_repo = WorkoutRepository()
@@ -64,7 +64,7 @@ async def add_new_exercise(data : ExercisesToWorkout):
      
 
 @workout_page_router.delete("/exercises/delete")
-async def delete_exercise_from_workout(data : ExercisesToWorkout):
+async def delete_exercise_from_workout(data : ExercisesToWorkout, current_user : dict = Depends(get_current_user)):
     repo = WorkoutExercisesRepository()
     
     if (not data.exercise_id):
@@ -85,12 +85,12 @@ async def update_exercise(data : ExerciseFromWorkout):
     
 
 @workout_page_router.get("/all_workouts")
-async def load_all_workouts_page(request: Request, current_user : dict = Depends(get_current_user)):
-    return templates.TemplateResponse("all_workouts_page.html", {"request" : request, "user" : current_user})
+async def load_all_workouts_page(request: Request):
+    return templates.TemplateResponse("all_workouts_page.html", {"request" : request})
 
 @workout_page_router.get("/workouts")
-async def load_training_page(request : Request, current_user : dict = Depends(get_current_user)):
-    return templates.TemplateResponse("workout_page.html", {"request" : request, "user" : current_user})
+async def load_training_page(request : Request):
+    return templates.TemplateResponse("workout_page.html", {"request" : request})
 
      
 @workout_page_router.post("/workouts/create")
@@ -110,7 +110,7 @@ async def add_new_training(data : WorkoutPydantic, current_user: dict = Depends(
 
 
 @workout_page_router.delete("/workout/delete/{workout_id}")
-async def delete_workout(workout_id : int):
+async def delete_workout(workout_id : int, current_user : dict = Depends(get_current_user)):
     repo = WorkoutRepository()
     
     await repo.delete_workout_by_workout_id(workout_id=workout_id)
@@ -134,7 +134,7 @@ async def get_exercises_in_workout(workout_id : int, current_user : dict = Depen
     return await workout_repo.get_exercises_by_workout_id(workout_id=workout_id, user_id=current_user.id)
     
 @workout_page_router.delete("/workouts/{workout_id}/exercises/{exercise_id}")
-async def delete_exercise_from_workout(workout_id : int , exercise_id : int):
+async def delete_exercise_from_workout(workout_id : int , exercise_id : int, current_user : dict = Depends(get_current_user)):
     workout_exercises_repo = WorkoutExercisesRepository()
     
     if (not exercise_id):

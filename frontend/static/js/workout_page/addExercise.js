@@ -1,9 +1,10 @@
 import { API_URL } from "../config.js";
+import { apiFetch } from "../auth/apiFetch.js";
 
 export async function addToWorkout(workout_id, exercise_id, sets, reps) {
 
     try {
-        const response = await fetch(`${API_URL}/exercises/add-to-workout`, {
+        const response = await apiFetch(`${API_URL}/exercises/add-to-workout`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

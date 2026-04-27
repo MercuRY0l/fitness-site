@@ -4,10 +4,11 @@ import { initExerciseUI } from "./exerciseUI.js";
 import { loadExercises } from "./loadExercises.js"
 import { deleteWorkout } from "./deleteWorkout.js"
 import { showToast } from "../showToast.js";
+import { apiFetch } from "../auth/apiFetch.js"
 
 export async function loadLastWorkout(){
     try{
-        const response = await fetch(`${API_URL}/workouts/last`, {method : "GET"})
+        const response = await apiFetch(`${API_URL}/workouts/last`, {method : "GET"})
         
         if (!response.ok){
             const err = await response.json();
