@@ -9,6 +9,19 @@ h1{
     text-align: center;
 }
 
+.no-workouts-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.no-workouts-container p{
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+}
+
 body{
 font-family: Arial;
 margin:0;
@@ -116,6 +129,9 @@ border-radius:6px;
 
 .workouts-container{
     border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
 }
 
 .workout-block{
