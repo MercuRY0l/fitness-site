@@ -1,7 +1,7 @@
 
 
 import { showToast } from "../showToast.js";
-
+import { initUserPanel } from "../user/initUser.js";
 
 export function login(){
 
@@ -10,6 +10,7 @@ export function login(){
 
     const login_input = document.getElementById("login-input-login")
     const password_input = document.getElementById("login-input-password")
+
 
     if (!login_btn){
         return;
@@ -43,8 +44,7 @@ export function login(){
             }
         showToast("Вы успешно вошли!", "success")
         log_modal.classList.remove("active")
+        await initUserPanel();
 
     }
-
-
 }

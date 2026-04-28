@@ -1,26 +1,25 @@
 import { showToast } from "./showToast.js";
+import { API_URL } from "./config.js";
+import { apiFetch } from "./auth/apiFetch.js";
 
 export async function checkAuth() {
     try {
-        const response = await fetch("http://127.0.0.1:5000/auth/me", {
+        const response = await apiFetch(`${API_URL}/auth/me`, {
             method: "GET",
             credentials: "include"
         });
 
         if (!response.ok) {
-            showToast("Необходимо авторизоваться!", "error");
             return null;
         }
 
         const data = await response.json();
 
-    
         if (!data.user || !data.user.id) {
-            showToast("Не удалось получить ID пользователя", "error");
             return null;
         }
 
-        return data.user.id; 
+        return data.user; 
 
     } catch (error) {
         console.log(error);

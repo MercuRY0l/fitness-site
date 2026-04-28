@@ -17,7 +17,13 @@ login_router = APIRouter()
 
 @login_router.get("/auth/me", status_code=200)
 async def check_auth(current_user : dict = Depends(get_current_user)):
-    return {"message" : "Авторизован", "user" : current_user}
+    return {
+        "message": "Авторизован",
+        "user": {
+            "id": current_user.id,
+            "username": current_user.login
+        }
+    }
     
 
 @login_router.post("/auth/login", status_code=200)
