@@ -14,7 +14,7 @@ load_dotenv()
 SECRET_KEY = os.getenv("SECRET_KEY")
 ALGORITHM = "HS256"
 
-ACCESS_TOKEN_EXPIRES = 1
+ACCESS_TOKEN_EXPIRES = 15
 REFRESH_TOKEN_EXPIRES = 7
 
 def create_token(data: dict, expires_delta : int):
