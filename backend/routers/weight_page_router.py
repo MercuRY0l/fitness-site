@@ -1,7 +1,11 @@
 
 
-from fastapi import APIRouter, Request
+from fastapi import APIRouter, Request, Depends
 from fastapi.templating import Jinja2Templates
+
+from .deps import get_current_user
+
+from ..database.repositories.weight_repo import WeightHistoryRepository
 
 weight_page_router = APIRouter()
 
@@ -11,3 +15,18 @@ templates = Jinja2Templates("frontend/templates")
 async def load_weight_page(request : Request):
     return templates.TemplateResponse("weight_page.html", {"request" : request})
 
+
+@weight_page_router.post("/users/weight/create")
+async def create_weight(weight : float, current_user : dict = Depends(get_current_user)):
+    repo = WeightHistoryRepository()
+    return await repo.create(user_id=current_user.id, weight=weight)
+
+@weight_page_router.delete("/users/weight/delete")
+async def delete_weith(current_user : dict = Depends(get_current_user)):
+    repo = WeightHistoryRepository()
+    await repo.delete(user_id=current_user.id)
+    
+@weight_page_router.get("/users/weight/get")
+async def get_weight(current_user : dict = Depends(get_current_user)):
+    repo = WeightHistoryRepository()
+    return await repo.get_weight(user_id=current_user.id)
