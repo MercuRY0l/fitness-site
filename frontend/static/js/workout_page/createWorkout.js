@@ -72,20 +72,21 @@ export async function createWorkout(){
             body: JSON.stringify({ title, date })
         });
 
-        const data = await response.json(); 
-
         if (!response.ok){
-            console.log("Ошибка:", data);
-            showToast("Ошибка при создании тренировки", "error");
+            console.error("Ошибка при создании тренировки");
             return false;
         }
+        const data = await response.json();
 
         showToast("Тренировка успешно создана!");
 
         workout_title_input.value = "";
         workout_date_input.value = "";
 
-        return true;
+        console.log("WORKOUT:", data.workout);
+        await renderLastWorkout(data.workout);
+
+        return data.workout;
 
     } catch(error){
         console.log(error);

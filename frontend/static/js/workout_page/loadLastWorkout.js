@@ -6,13 +6,26 @@ import { deleteWorkout } from "./deleteWorkout.js"
 import { showToast } from "../showToast.js";
 import { apiFetch } from "../auth/apiFetch.js"
 
+
+export async function refreshLastWorkoutUI() {
+    const workout = await loadLastWorkout();
+
+    const container = document.getElementById("last-workout-container");
+
+    if (!workout) {
+        container.innerHTML = "";
+        return;
+    }
+
+    await renderLastWorkout(workout);
+}
+
 export async function loadLastWorkout(){
     try{
         const response = await apiFetch(`${API_URL}/workouts/last`, {method : "GET"})
         
         if (!response.ok){
-            const err = await response.json();
-            console.log(err);
+            console.log("Ошибка при загрузке последней тренировки");
         }
 
         const data = await response.json();
@@ -112,16 +125,10 @@ export async function renderLastWorkout(workout){
         });
 
         const delete_workout_btn = workoutDiv.querySelector(".delete-btn");
-        delete_workout_btn.addEventListener("click", async() =>{
-            let status = await deleteWorkout(workout.id)
-            
-            if (!status){
-                console.log("Ошибка при удалении тренировки.");
-                return;
-            }
-
-            workoutDiv.remove()
-        })
+        delete_workout_btn.addEventListener("click", async () => {
+            await deleteWorkout(workout.id)
+            await refreshLastWorkoutUI();
+    });
 }
 
 
