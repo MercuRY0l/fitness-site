@@ -297,6 +297,14 @@ text-decoration:none;
     pointer-events: auto;
 }
 
+#auth-nav-item {
+    position: relative;
+}
+
+#user-panel {
+    display: inline-block;
+}
+
 
 section {
   padding: 100px 20px;
