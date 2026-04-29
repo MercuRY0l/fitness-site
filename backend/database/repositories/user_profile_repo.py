@@ -9,6 +9,7 @@ class UserProfileRepository:
     async def create(
         self,
         user_id: int,
+        name : str,
         age: int,
         height: int,
         weight: int,
@@ -19,6 +20,7 @@ class UserProfileRepository:
         async with async_session() as session:
             profile = UsersProfiles(
                 user_id=user_id,
+                name=name,
                 age=age,
                 height=height,
                 weight=weight,

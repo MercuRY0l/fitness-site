@@ -40,7 +40,7 @@
 
 <section class="profile-section">
 
-    <div class="profile-card">
+    <div class="profile-card" id="profile-card">
 
         <div class="profile-header">
             <h1>Личный кабинет</h1>
@@ -53,27 +53,27 @@
 
                 <div class="input-group">
                     <label>Имя</label>
-                    <input type="text" placeholder="Введите имя">
+                    <input name="name" type="text" placeholder="Введите имя">
                 </div>
 
                 <div class="input-group">
                     <label>Возраст</label>
-                    <input type="number" placeholder="Введите возраст">
+                    <input name="age" type="number" placeholder="Введите возраст">
                 </div>
 
                 <div class="input-group">
                     <label>Рост (см)</label>
-                    <input type="number" placeholder="Введите рост">
+                    <input name="height" type="number" placeholder="Введите рост">
                 </div>
 
                 <div class="input-group">
                     <label>Вес (кг)</label>
-                    <input type="number" placeholder="Введите вес">
+                    <input name="weight" type="number" placeholder="Введите вес">
                 </div>
 
                 <div class="input-group">
                     <label>Пол</label>
-                    <select>
+                    <select name="gender">
                         <option>Мужской</option>
                         <option>Женский</option>
                     </select>
@@ -81,7 +81,7 @@
 
                 <div class="input-group">
                     <label>Цель</label>
-                    <select>
+                    <select name="goal">
                         <option>Похудение</option>
                         <option>Набор массы</option>
                         <option>Поддержание формы</option>
@@ -92,7 +92,7 @@
             </div>
 
             <button type="submit" class="save-btn">
-                Сохранить данные
+                Сохранить
             </button>
 
         </form>

@@ -244,29 +244,56 @@ flex: 1;
 }
 
 
+.form-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+    gap: 12px;
+}
+
+.save-btn,
+.delete-btn {
+    padding: 12px 18px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.2s ease;
+}
+
+
 .save-btn {
-    margin-top: 30px;
-    width: 100%;
     background: #ff3c3c;
     color: white;
-    border: none;
-    padding: 15px;
-    font-size: 16px;
+    flex: 1;
     font-weight: bold;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: 0.25s ease;
+
+    transition: background-color 0.25s ease;
 }
 
 .save-btn:hover {
-    background: #ff2020;
-    transform: translateY(-2px);
+    background: #e63232;
+    transform: translateY(-1px);
+
 }
 
-.save-btn:active {
-    transform: scale(0.98);
+
+.delete-btn {
+    background: rgba(255, 255, 255, 0.08);
+    color: white;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
 }
 
+.delete-btn:hover {
+    background: rgba(255, 60, 60, 0.2);
+    color: #ff3c3c;
+}
 
 @media (max-width: 768px) {
 
