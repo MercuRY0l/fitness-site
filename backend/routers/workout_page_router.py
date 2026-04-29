@@ -97,16 +97,16 @@ async def load_training_page(request : Request):
 async def add_new_training(data : WorkoutPydantic, current_user: dict = Depends(get_current_user)):
     workout_repo = WorkoutRepository()
     
-    existing = await workout_repo.find_workout_by_title(data.title)
+    existing = await workout_repo.find_workout_by_title_and_user(title=data.title, user_id=current_user.id)
 
     if existing:
         return {
-            "id": existing.id,
+            "workout": existing,
             "message": "Тренировка уже существует"
         }
     
     workout = await workout_repo.create_workout(user_id=current_user.id, title=data.title, date=data.date, created_at=datetime.now(timezone.utc))
-    return workout
+    return { "workout": workout}
 
 
 @workout_page_router.delete("/workout/delete/{workout_id}")

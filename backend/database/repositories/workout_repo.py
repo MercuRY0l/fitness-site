@@ -66,6 +66,13 @@ class WorkoutRepository:
             for w in workouts
         ]
     
+    async def find_workout_by_title_and_user(self, title : str, user_id : int) -> Workouts:
+        async with async_session() as session:
+            stmt = select(Workouts).where(Workouts.title == title , Workouts.user_id == user_id)
+            res = await session.execute(stmt)
+            return res.scalars().one_or_none()
+    
+    
     async def create_workout(self, user_id : int, title : str, date : datetime, created_at : datetime):
         async with async_session() as session:
             ex = Workouts(user_id=user_id, title=title, date=date, created_at=created_at)

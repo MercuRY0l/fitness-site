@@ -25,7 +25,6 @@ export async function initUserPanel() {
 
             <div class="user-dropdown">
                 <a href="/user/profile">Мой профиль</a>
-                <a href="/user/settings">Настройки</a>
                 <a href="/user/weight">Статистика</a>
                 <a href="#" id="logout-btn">Выйти</a>
             </div>

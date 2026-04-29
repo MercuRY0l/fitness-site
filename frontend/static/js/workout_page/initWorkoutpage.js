@@ -16,19 +16,14 @@ export async function initWorkoutPage(){
     
     const create_btn = document.getElementById("createWorkout");
     if (create_btn) {
+        
         create_btn.addEventListener("click", async () => {
             const created = await createWorkout();
 
             if(!created){
                 return;
             }
-
-            const newWorkout = await loadLastWorkout();
-
-            if (newWorkout) {
-                await renderLastWorkout(newWorkout);
-            }
-
+            await renderLastWorkout(workout);
         });
     }
     
