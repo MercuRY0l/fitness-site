@@ -97,4 +97,12 @@ class Workout_Exercises(Base):
     )
     
     
+class WeightHistory(Base):
+    __tablename__ = "weight_history"
     
+    id : Mapped[int] = mapped_column(Integer, primary_key=True)
+    
+    user_id : Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"),  nullable=False)
+    weight : Mapped[float] = mapped_column(Float, nullable=False)
+    
+    created_at : Mapped[datetime] = mapped_column(DateTime, nullable=False, default=func.now())
