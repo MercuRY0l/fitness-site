@@ -38,6 +38,10 @@ list-style:none;
 gap:20px;
 }
 
+nav{
+  margin-right: 40px;
+}
+
 nav a{
 color:white;
 text-decoration:none;
@@ -65,8 +69,13 @@ text-decoration:none;
 }
 
 .submenu li a {
-  padding: 10px 20px;
-  display: block;
+    display: block;
+    padding: 10px 20px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.2s ease;
+    border-radius: 6px;
 }
 
 .dropdown:hover .submenu {
@@ -74,6 +83,74 @@ text-decoration:none;
   transform: translateY(0);
   pointer-events: auto;
 }
+
+.user-menu-wrapper {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+
+.user-name {
+    display: block;
+    
+    color: #fff;
+    font-weight: 600;
+    font-size: 15px;
+    border-radius: 8px;
+    transition: 0.25s ease;
+}
+
+.user-name:hover {
+    background: rgba(255,255,255,0.06);
+}
+
+
+.user-dropdown {
+    position: absolute;
+    
+
+    background: #222;
+    list-style: none;
+    padding: 10px 0;
+    min-width: 190px;
+
+    opacity: 0;
+    transform: translateY(10px);
+    pointer-events: none;
+
+    transition: 0.3s ease;
+    border-radius: 10px;
+
+    box-shadow: 0 12px 25px rgba(0,0,0,0.35);
+    z-index: 1000;
+}
+
+
+.user-dropdown a {
+    padding: 10px 20px;
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.2s ease;
+}
+
+
+.user-dropdown a:hover {
+    background: rgba(255,255,255,0.07);
+    padding-left: 24px;
+}
+
+.user-menu-wrapper:hover .user-dropdown {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+
+
+
 main{
 padding:40px;
 max-width:1000px;
