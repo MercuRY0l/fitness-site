@@ -7,7 +7,7 @@ from sqlalchemy import select, delete
 
 class WeightHistoryRepository():
     
-    async def create(self, user_id : int ,weight : float) -> WeightHistory:
+    async def create(self, user_id : int , weight : float) -> WeightHistory:
         async with async_session() as session:
             weight = WeightHistory(user_id=user_id, weight=weight)
             session.add(weight)

@@ -5,6 +5,7 @@ import { initWorkoutPage } from "./workout_page/initWorkoutpage.js";
 import { initAllWorkoutsPage } from "./workout_page/all_workouts_page/initAllWorkoutsPage.js";
 import { initUserPanel } from "./user/initUser.js";
 import { initProfile } from "./user/profile/initProfile.js";
+import { initWeightTracker } from "./user/weight_page/initWeightTracker.js";
 
 document.addEventListener("DOMContentLoaded", async () => {    
     initAuthModals();
@@ -23,7 +24,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     if (document.querySelector(".profile-form")) {
-        initProfile();
+        await initProfile();
+    }
+
+    if (document.querySelector(".weight-section")){
+        await initWeightTracker();
     }
     
 });

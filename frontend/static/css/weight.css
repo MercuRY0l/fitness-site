@@ -167,6 +167,7 @@ border-top: 1px solid gray;
 }
 
 
+
 .weight-section{
     margin-top:40px;
     background:#111;
@@ -178,12 +179,12 @@ border-top: 1px solid gray;
     margin-bottom:20px;
 }
 
-#weight-form{
+.weight-input-block{
     display:flex;
     gap:12px;
 }
 
-#weight-form input{
+.weight-input-block input{
     flex:1;
     padding:12px;
     border:none;
@@ -192,7 +193,7 @@ border-top: 1px solid gray;
     color:white;
 }
 
-#weight-form button{
+.weight-input-block button{
     padding:12px 20px;
     border:none;
     border-radius:10px;
@@ -206,10 +207,25 @@ border-top: 1px solid gray;
     color:#aaa;
 }
 
-#weightChart{
-    background:#222;
-    padding:20px;
-    border-radius:16px;
+.chart-wrapper {
+    width: 100%;
+    max-width: 900px;
+    height: 340px;
+
+    margin-top: 20px;
+
+    background: linear-gradient(180deg, #151515, #0f0f0f);
+    padding: 16px;
+    border-radius: 16px;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+#weightChart {
+    width: 100% !important;
+    height: 100% !important;
+
+    background: transparent;
 }
 
 main{
