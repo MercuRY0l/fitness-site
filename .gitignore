@@ -80,3 +80,5 @@ venv/
 ENV/
 env/
 uv/
+
+node_modules/
