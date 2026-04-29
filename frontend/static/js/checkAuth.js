@@ -1,19 +1,29 @@
+import { showToast } from "./showToast.js";
+import { API_URL } from "./config.js";
+import { apiFetch } from "./auth/apiFetch.js";
 
-import {showToast} from "./showToast.js"
+export async function checkAuth() {
+    try {
+        const response = await apiFetch(`${API_URL}/auth/me`, {
+            method: "GET",
+            credentials: "include"
+        });
 
-export async function checkAuth(){
-
-    const response = await fetch("http://127.0.0.1:5000/auth/me", {
-        method : "GET",
-        headers : {
-            "Authorization" : `Bearer ${window.accessToken}`
+        if (!response.ok) {
+            return null;
         }
-    });
 
-    const data = await response.json();
-    
-    if (!response.ok){
-        showToast("Необходимо авторизоваться!", "error")
+        const data = await response.json();
+
+        if (!data.user || !data.user.id) {
+            return null;
+        }
+
+        return data.user; 
+
+    } catch (error) {
+        console.log(error);
+        showToast("Ошибка сети", "error");
+        return null;
     }
-
 }

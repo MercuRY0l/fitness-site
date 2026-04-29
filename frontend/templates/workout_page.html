@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Тренировки | FitHard</title>
+<link rel="stylesheet" href="/static/css/workouts.css">
+<link rel="stylesheet" href="https://cloudflare.com">
+</head>
+
+<body>
+  
+  <div class="toast-container" id="toast-container"></div>
+
+
+<header>
+  <div class="logo">FitHard</div>
+  <nav>
+    <ul>
+      <li><a href="/">Главная</a></li>
+      <li><a href="/">Контакты</a></li>
+      <li><a href="/">Отзывы</a></li>
+      <li class="dropdown">
+        <a href="/workouts">Тренировки</a>
+      <ul class="submenu">
+        <li><a href="/all_workouts">Все тренировки</a></li>
+        </ul>
+      </li>
+
+      <li class="auth-nav-item">
+        <a id="open-modal-user-btn" class="open-login-btn">Личный кабинет</a>
+        <div id="user-panel"></div>
+      </li>
+
+    </ul>
+  </nav>
+</header> 
+
+<main>
+
+<div class="training-form">
+
+  <label>Название тренировки</label>
+  <input type="text" id="workout-title" placeholder="Например: Тренировка 1">
+  <span class="error-message" id="title-error"></span>
+
+  <label>Дата тренировки</label>
+  <input type="date" id="workout-date">
+  <span class="error-message" id="date-error"></span>
+
+  <div class="add-button-container">
+    <button class="add-btn" id="createWorkout">Создать тренировку</button>
+  </div>
+
+</div>
+
+
+
+<div class="last-workout" id="last-workout-container"></div>
+
+
+</main>
+
+
+<footer>
+    &copy; 2026 FitHard. Все права защищены.
+</footer>
+
+<script type="module" src="/static/js/main.js" defer></script>
+
+</body>
+
+
+</html>

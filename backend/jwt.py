@@ -33,11 +33,11 @@ def update_token(refresh_token : str):
         user_email = str(payload.get("email"))
     
     except jwt.ExpiredSignatureError:
-        raise HTTPException(status_code=400, detail={"error" : "Refresh токен истек!"})
+        raise HTTPException(status_code=401, detail={"error" : "Refresh токен истек!"})
     except jwt.PyJWKError:
-        raise HTTPException(status_code=400, detail={"error" : "Неверный refresh токен!"})
+        raise HTTPException(status_code=401, detail={"error" : "Неверный refresh токен!"})
     
-    access_token = create_token({"user_id" : user_id, "login" : user_login, "email" : user_email}, timedelta(minutes=ACCESS_TOKEN_EXPIRES))
+    access_token = create_token({"user_id" : user_id, "login" : user_login, "email" : user_email, "type" : "access"}, timedelta(minutes=ACCESS_TOKEN_EXPIRES))
     return access_token
 
 

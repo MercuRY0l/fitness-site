@@ -1,7 +1,7 @@
 
 
-import { showToast } from "./showToast.js";
-
+import { showToast } from "../showToast.js";
+import { initUserPanel } from "../user/initUser.js";
 
 export function login(){
 
@@ -10,6 +10,15 @@ export function login(){
 
     const login_input = document.getElementById("login-input-login")
     const password_input = document.getElementById("login-input-password")
+
+
+    if (!login_btn){
+        return;
+    }
+
+    if (!log_modal){
+        return;
+    }
 
     login_btn.onclick = async () => {
         
@@ -33,12 +42,9 @@ export function login(){
                 showToast(errorMessage, "error");
                 return;
             }
-        const data = await response.json();
-        window.accessToken = data.access_token;
         showToast("Вы успешно вошли!", "success")
         log_modal.classList.remove("active")
+        await initUserPanel();
 
     }
-
-
 }
