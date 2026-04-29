@@ -120,7 +120,7 @@ async def delete_workout(workout_id : int, current_user : dict = Depends(get_cur
 @workout_page_router.get("/workouts/all", response_model=list[WorkoutResponse])
 async def get_workouts(current_user : dict = Depends(get_current_user)):
     workout_repo = WorkoutRepository()
-    return await workout_repo.find_three_workouts_by_user_id(current_user.id)
+    return await workout_repo.find_workouts_by_user_id(current_user.id)
     
 
 @workout_page_router.get("/workouts/last")

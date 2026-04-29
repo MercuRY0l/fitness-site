@@ -1,5 +1,7 @@
 import { API_URL } from "../../config.js";
 import { initExerciseUI } from "../exerciseUI.js";
+import { deleteWorkout } from "../deleteWorkout.js";
+import { apiFetch } from "../../auth/apiFetch.js";
 
 export function renderWorkout(workout) {
 
@@ -33,7 +35,7 @@ export function renderWorkout(workout) {
             </div>
             <div class="workout-header-actions">
                 <button class="toggle-btn">›</button>
-                <button class="delete-btn">✖</button>
+                <button class="delete-btn" data-id="${workout.workout_id}">✖</button>
             </div>
         </div>
 
@@ -41,7 +43,7 @@ export function renderWorkout(workout) {
             <div class="exercise-list">
                 ${exercisesHTML}
             </div>
-            <button class="open-add-exercise" data-id="${workout.id}">
+            <button class="open-add-exercise" data-id="${workout.workout_id}">
                 + Добавить упражнение
             </button>
             <div class="search-container" style="display:none;">
@@ -68,14 +70,15 @@ export function renderWorkout(workout) {
 
     initExerciseUI({
         root: workoutDiv,
-        workoutId: workout.id
+        workoutId: workout.workout_id
     });
+
 }
 
 
 export async function loadWorkouts() {
     try {
-        const response = await fetch(`${API_URL}/workouts/all`);
+        const response = await apiFetch(`${API_URL}/workouts/all`);
 
         if (!response.ok) {
             const err = await response.json();
@@ -103,6 +106,7 @@ export async function loadWorkouts() {
         container.innerHTML = "";
 
         workouts.forEach(w => renderWorkout(w));
+                
 
     } catch (error) {
         console.log(error);

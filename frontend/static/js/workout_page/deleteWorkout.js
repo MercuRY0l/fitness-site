@@ -16,19 +16,7 @@ export async function deleteWorkout(workout_id){
             return false;
 
         }
-
-        console.log("Тренировка успешно удалена")
-        const workout = await loadLastWorkout();
-        
-        if (workout) {
-            await renderLastWorkout(workout);
-        } else {
-            console.log("Нет тренировок");
-        }
-
         return true;
-
-
     }
 
     catch(error){
