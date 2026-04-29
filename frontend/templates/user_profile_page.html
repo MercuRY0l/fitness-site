@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Тренировки | FitHard</title>
+<link rel="stylesheet" href="/static/css/user_profile.css">
+<link rel="stylesheet" href="https://cloudflare.com">
+</head>
+
+<body>
+  
+  <div class="toast-container" id="toast-container"></div>
+
+
+<header>
+  <div class="logo">FitHard</div>
+  <nav>
+    <ul>
+      <li><a href="/">Главная</a></li>
+      <li><a href="/">Контакты</a></li>
+      <li><a href="/">Отзывы</a></li>
+      <li class="dropdown">
+        <a href="/workouts">Тренировки</a>
+      <ul class="submenu">
+        <li><a href="/all_workouts">Все тренировки</a></li>
+        </ul>
+      </li>
+
+      <li class="auth-nav-item">
+        <a id="open-modal-user-btn" class="open-login-btn">Личный кабинет</a>
+        <div id="user-panel"></div>
+      </li>
+
+    </ul>
+  </nav>
+</header> 
+
+<main>
+
+<section class="profile-section">
+
+    <div class="profile-card">
+
+        <div class="profile-header">
+            <h1>Личный кабинет</h1>
+            <p>Ваши персональные данные и цели</p>
+        </div>
+
+        <form class="profile-form">
+
+            <div class="form-grid">
+
+                <div class="input-group">
+                    <label>Имя</label>
+                    <input type="text" placeholder="Введите имя">
+                </div>
+
+                <div class="input-group">
+                    <label>Возраст</label>
+                    <input type="number" placeholder="Введите возраст">
+                </div>
+
+                <div class="input-group">
+                    <label>Рост (см)</label>
+                    <input type="number" placeholder="Введите рост">
+                </div>
+
+                <div class="input-group">
+                    <label>Вес (кг)</label>
+                    <input type="number" placeholder="Введите вес">
+                </div>
+
+                <div class="input-group">
+                    <label>Пол</label>
+                    <select>
+                        <option>Мужской</option>
+                        <option>Женский</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label>Цель</label>
+                    <select>
+                        <option>Похудение</option>
+                        <option>Набор массы</option>
+                        <option>Поддержание формы</option>
+                        <option>Сушка</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <button type="submit" class="save-btn">
+                Сохранить данные
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<footer>
+    &copy; 2026 FitHard. Все права защищены.
+</footer>
+
+<script type="module" src="/static/js/main.js" defer></script>
+
+</body>
+
+
+</html>

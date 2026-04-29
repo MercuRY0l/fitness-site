@@ -13,6 +13,7 @@ from backend.routers.registration_router import reg_router
 from backend.routers.login_router import login_router
 from backend.routers.refresh_token_router import refresh_token_router
 from backend.routers.logout_router import logout_router
+from backend.routers.user_profile_router import user_profile_router
 
 
 @asynccontextmanager
@@ -36,6 +37,7 @@ app.include_router(reg_router)
 app.include_router(login_router)
 app.include_router(refresh_token_router)
 app.include_router(logout_router)
+app.include_router(user_profile_router)
 
 app.mount("/static", StaticFiles(directory="frontend/static"), name="static")
 
