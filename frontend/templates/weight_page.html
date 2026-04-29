@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/static/css/weight.css">
+</head>
+<body>
+    
+
+
+    <header>
+        <div class="logo">FitHard</div>
+        <nav>
+            <ul>
+            <li><a href="/">Главная</a></li>
+            <li><a href="/">Контакты</a></li>
+            <li><a href="/">Отзывы</a></li>
+            <li class="dropdown">
+                <a href="/workouts">Тренировки</a>
+            <ul class="submenu">
+                <li><a href="/all_workouts">Все тренировки</a></li>
+                </ul>
+            </li>
+
+            <li class="auth-nav-item">
+                <a id="open-modal-user-btn" class="open-login-btn">Личный кабинет</a>
+                <div id="user-panel"></div>
+            </li>
+
+            </ul>
+        </nav>
+    </header> 
+
+<main>
+    <section class="weight-section">
+
+    <h2>Прогресс веса</h2>
+
+    <form id="weight-form">
+        <input
+            type="number"
+            step="0.1"
+            id="weight-input"
+            placeholder="Введите вес текущий вес: "
+        >
+
+        <button type="submit">
+            Добавить
+        </button>
+    </form>
+
+    <div class="weight-stats">
+        <p id="current-weight"></p>
+        <p id="month-diff"></p>
+    </div>
+
+    <canvas id="weightChart"></canvas>
+
+</section>
+</main>
+
+
+<footer>
+    &copy; 2026 FitHard. Все права защищены.
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type="module" src="/static/js/main.js"></script>
+</body>
+</html>
