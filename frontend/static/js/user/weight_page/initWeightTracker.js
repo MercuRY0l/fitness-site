@@ -112,16 +112,16 @@ async function renderWeightChart() {
                 {
                     label: "Вес",
                     data: weights,
-
                     borderColor: isUp ? "#22c55e" : "#ff3c3c",
                     backgroundColor: gradient,
-
-                    borderWidth: 2,
+                    borderWidth: 4,
                     fill: true,
-                    tension: 0.15,
+                    tension: 0.25,
 
-                    pointRadius: 0,
-                    pointHoverRadius: 5,
+                    pointRadius: 4,
+                    pointHoverRadius: 7,
+                    pointBackgroundColor: "#fff",
+                    pointBorderWidth: 2
                 }
             ]
         },
@@ -154,6 +154,10 @@ async function renderWeightChart() {
                 },
 
                 y: {
+                    min: Math.min(...weights) - 1,
+                    max: Math.max(...weights) + 1,
+
+
                     grid: {
                         color: "rgba(255,255,255,0.05)"
                     },
