@@ -42,11 +42,11 @@ class Exercises(Base):
     difficulty : Mapped[int] = mapped_column(Integer, nullable=False)
     image : Mapped[str] = mapped_column(String(255))
     
-    workouts: Mapped[list["Workouts"]] = relationship(
-    "Workouts",
-    secondary="workout_exercises",
-    back_populates="exercises"
-    )
+    # workouts: Mapped[list["Workouts"]] = relationship(
+    # "Workouts",
+    # secondary="workout_exercises",
+    # back_populates="exercises"
+    # )
 
     workout_links: Mapped[list["Workout_Exercises"]] = relationship(
         "Workout_Exercises",
@@ -65,11 +65,11 @@ class Workouts(Base):
     
     user : Mapped["Users"] = relationship("Users", back_populates="workouts")
     
-    exercises: Mapped[list["Exercises"]] = relationship(
-    "Exercises",
-    secondary="workout_exercises",
-    back_populates="workouts"
-    )
+    # exercises: Mapped[list["Exercises"]] = relationship(
+    # "Exercises",
+    # secondary="workout_exercises",
+    # back_populates="workouts"
+    # )
 
     exercise_links: Mapped[list["Workout_Exercises"]] = relationship(
     "Workout_Exercises",
